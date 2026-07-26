@@ -358,6 +358,7 @@ textarea{min-height:90px;resize:vertical}
           <button class="primary" id="syncPushBtn" type="button">⬆ Publish now</button>
           <button id="syncNewSubjectBtn" type="button" title="Detach from this subject and start a separate one">🆕 New subject</button>
           <button id="syncBackBtn" type="button" style="display:none" title="Return to the subject this file was built for">↩ Back to original</button>
+          <button id="syncDiagBtn" type="button" title="Copy technical details so they can be pasted for help">🩺 Copy diagnostics</button>
         </div>
       </div>
       <div class="sync-key-row">
@@ -3497,17 +3498,76 @@ const LiveSync = (function(){
   }
 
   /* ---------- library ---------- */
-  function loadLib(){
+  // Several mirrors: if one CDN is blocked or slow on a given network, try the
+  // next rather than failing the whole sync layer.
+  const LIB_SOURCES = [
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js",
+    "https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js",
+    "https://cdn.skypack.dev/@supabase/supabase-js@2/dist/umd/supabase.js"
+  ];
+  let libSourceUsed = "";
+  function loadOne(src, timeoutMs){
     return new Promise((resolve, reject) => {
-      if(window.supabase && window.supabase.createClient) return resolve(window.supabase);
       const s = document.createElement("script");
-      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js";
-      s.onload = () => (window.supabase && window.supabase.createClient)
-        ? resolve(window.supabase)
-        : reject(new Error("Sync library loaded but was empty."));
-      s.onerror = () => reject(new Error("Could not reach the sync library (offline?)."));
+      let done = false;
+      const timer = setTimeout(() => {
+        if(done) return;
+        done = true; s.remove();
+        reject(new Error("timed out"));
+      }, timeoutMs);
+      s.src = src;
+      s.onload = () => {
+        if(done) return;
+        done = true; clearTimeout(timer);
+        (window.supabase && window.supabase.createClient)
+          ? resolve(window.supabase)
+          : reject(new Error("loaded but empty"));
+      };
+      s.onerror = () => {
+        if(done) return;
+        done = true; clearTimeout(timer); s.remove();
+        reject(new Error("blocked or unreachable"));
+      };
       document.head.appendChild(s);
     });
+  }
+  async function loadLib(){
+    if(window.supabase && window.supabase.createClient){
+      libSourceUsed = "already present";
+      return window.supabase;
+    }
+    const tried = [];
+    for(const src of LIB_SOURCES){
+      try{
+        const lib = await loadOne(src, 9000);
+        libSourceUsed = src;
+        return lib;
+      }catch(e){
+        tried.push(src.split("/")[2] + " (" + (e.message || "failed") + ")");
+      }
+    }
+    throw new Error("Could not load the sync library. Tried: " + tried.join(", "));
+  }
+
+  function diagnostics(){
+    return [
+      "--- quiz sync diagnostics ---",
+      "page:        " + location.href,
+      "origin:      " + location.origin,
+      "quiz id:     " + SYNC_CONFIG.quizId,
+      "detached:    " + isDetached(),
+      "configured:  " + configured(),
+      "connected:   " + ready,
+      "lib source:  " + (libSourceUsed || "none loaded"),
+      "status:      " + status,
+      "note:        " + (statusNote || "-"),
+      "last error:  " + (lastError || "-"),
+      "write key:   " + (writeKey() ? "present on this device" : "ABSENT"),
+      "version:     " + rev,
+      "online flag: " + navigator.onLine,
+      "browser:     " + navigator.userAgent,
+      "-----------------------------"
+    ].join("\n");
   }
 
   /* ---------- network ---------- */
@@ -3731,7 +3791,7 @@ const LiveSync = (function(){
     if(backBtn) backBtn.style.display = isDetached() ? "" : "none";
   }
 
-  return { init, pull, push, onLocalChange, setWriteKey, refreshUI, newSubject, backToOriginal,
+  return { init, pull, push, onLocalChange, setWriteKey, refreshUI, newSubject, backToOriginal, diagnostics,
            get isOn(){ return configured(); },
            get canPublish(){ return canPublish(); },
            get quizId(){ return SYNC_CONFIG.quizId; },
@@ -5731,6 +5791,28 @@ document.getElementById("syncNewSubjectBtn").onclick = () => {
 };
 
 document.getElementById("syncBackBtn").onclick = () => LiveSync.backToOriginal();
+
+document.getElementById("syncDiagBtn").onclick = async () => {
+  const btn = document.getElementById("syncDiagBtn");
+  const text = LiveSync.diagnostics();
+  let copied = false;
+  try{
+    await navigator.clipboard.writeText(text);
+    copied = true;
+  }catch(e){
+    // clipboard blocked (common on file:// and http) — fall back to a textarea
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;left:0;top:0;width:96vw;height:40vh;z-index:9999;font:12px monospace";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ copied = document.execCommand("copy"); }catch(e2){}
+    if(copied) ta.remove();
+    else setTimeout(() => { ta.remove(); }, 30000);
+  }
+  btn.textContent = copied ? "✓ Copied — paste it in chat" : "⚠ Select the text above and copy";
+  setTimeout(() => { btn.textContent = "🩺 Copy diagnostics"; }, 6000);
+};
 
 applyButtonLayout();
 initAdminButtonDrag();
