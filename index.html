@@ -356,6 +356,7 @@ textarea{min-height:90px;resize:vertical}
         <div class="sync-bar-actions">
           <button id="syncPullBtn" type="button">⟳ Pull latest</button>
           <button class="primary" id="syncPushBtn" type="button">⬆ Publish now</button>
+          <button id="syncNewSubjectBtn" type="button" title="Detach from this subject and start a separate one">🆕 New subject</button>
         </div>
       </div>
       <div class="sync-key-row">
@@ -3409,7 +3410,7 @@ const SYNC_WRITE_KEY_STORE = "nortonQuizWriteKey";
 const SYNC_FIELDS = ["header","background","buttonLayout","masterQuestions","sessions"];
 
 const LiveSync = (function(){
-  let client = null, ready = false, applying = false;
+  let client = null, ready = false, applying = false, channel = null;
   let status = "off", statusNote = "";
   let rev = 0, lastSyncedAt = null, lastError = "", keyRejected = false;
   let pushTimer = null, pollTimer = null, retryTimer = null, retries = 0;
@@ -3567,7 +3568,7 @@ const LiveSync = (function(){
 
   function subscribe(){
     try{
-      client.channel("quiz:" + SYNC_CONFIG.quizId)
+      channel = client.channel("quiz:" + SYNC_CONFIG.quizId)
         .on("postgres_changes", {
           event: "*", schema: "public", table: SYNC_CONFIG.table,
           filter: "id=eq." + SYNC_CONFIG.quizId
@@ -3601,8 +3602,35 @@ const LiveSync = (function(){
     retryTimer = setTimeout(init, Math.min(60000, 2000 * Math.pow(2, retries)));
   }
 
+  /* ---------- starting a separate subject ---------- */
+  // Each exported file is meant to be its own subject with its own live quiz.
+  // Detaching mints a fresh quizId so edits stop touching the previous subject.
+  const QUIZID_OVERRIDE_KEY = STORAGE_KEY + "__quizid";
+  function loadQuizIdOverride(){
+    try{
+      const o = localStorage.getItem(QUIZID_OVERRIDE_KEY);
+      if(o) SYNC_CONFIG.quizId = o;
+    }catch(e){}
+  }
+  function newSubject(){
+    const fresh = makeFreshExportStorageKey().replace(/^norton_quiz_/, "subject_");
+    SYNC_CONFIG.quizId = fresh;
+    try{ localStorage.setItem(QUIZID_OVERRIDE_KEY, fresh); }catch(e){}
+    try{ if(channel && client) client.removeChannel(channel); }catch(e){}
+    channel = null;
+    rev = 0; lastSyncedAt = null; keyRejected = false;
+    if(ready){
+      subscribe();
+      setStatus("empty", "New subject started. Edit freely, then Publish now, then Export as HTML.");
+    }else{
+      setStatus("error", "New subject started, but this device is not connected.");
+    }
+    return fresh;
+  }
+
   async function init(){
     if(!configured()){ setStatus("off", "Add your Supabase url + anonKey to turn this on."); return; }
+    loadQuizIdOverride();
     setStatus("connecting", "");
     try{
       const lib = await loadLib();
@@ -3628,7 +3656,14 @@ const LiveSync = (function(){
       if(v) localStorage.setItem(SYNC_WRITE_KEY_STORE, v);
       else localStorage.removeItem(SYNC_WRITE_KEY_STORE);
     }catch(e){}
-    setStatus(!configured() ? "off" : (canPublish() ? "admin" : "live"), v ? "Write key saved on this device." : "Write key removed from this device.");
+    if(!configured()){
+      setStatus("off", "");
+    }else if(!ready){
+      // don't claim we're live just because a key was typed
+      setStatus("error", v ? "Key saved, but this device is not connected yet." : "Key removed.");
+    }else{
+      setStatus(canPublish() ? "admin" : "live", v ? "Write key saved on this device." : "Write key removed from this device.");
+    }
   }
 
   /* ---------- UI ---------- */
@@ -3676,9 +3711,10 @@ const LiveSync = (function(){
     if(keyInput && document.activeElement !== keyInput) keyInput.value = writeKey();
   }
 
-  return { init, pull, push, onLocalChange, setWriteKey, refreshUI,
+  return { init, pull, push, onLocalChange, setWriteKey, refreshUI, newSubject,
            get isOn(){ return configured(); },
-           get canPublish(){ return canPublish(); } };
+           get canPublish(){ return canPublish(); },
+           get quizId(){ return SYNC_CONFIG.quizId; } };
 })();
 
 const MASTER_ADMIN_SESSION = -1;
@@ -5580,9 +5616,12 @@ function exportAsHtml(){
   let html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
   // Drop the sync library <script> we injected at runtime; the exported file
-  // re-fetches it itself on load. SYNC_CONFIG is left untouched on purpose, so
-  // every exported copy joins the same live quiz. Change quizId to fork it.
+  // re-fetches it itself on load.
   html = html.replace(/<script[^>]*supabase-js[^>]*><\/script>/g, "");
+
+  // Bake in whichever subject this file is currently on. If "New subject" was
+  // clicked, that is a freshly minted id and the export becomes its own quiz.
+  html = html.replace(/quizId:\s*"[^"]*"/, "quizId:  " + JSON.stringify(LiveSync.quizId));
 
   // Every exported HTML gets a brand-new localStorage namespace.
   // This prevents a new GitHub Pages link from loading/merging data saved by an older quiz.
@@ -5645,6 +5684,30 @@ document.getElementById("syncForgetKeyBtn").onclick = () => {
 document.getElementById("syncWriteKeyInput").addEventListener("keydown", e => {
   if(e.key === "Enter") document.getElementById("syncSaveKeyBtn").click();
 });
+
+// "New subject" is destructive-ish (this file stops following the current quiz),
+// so require a second click rather than a blocking confirm() dialog.
+let newSubjectArmed = false, newSubjectTimer = null;
+document.getElementById("syncNewSubjectBtn").onclick = () => {
+  const btn = document.getElementById("syncNewSubjectBtn");
+  if(!newSubjectArmed){
+    newSubjectArmed = true;
+    btn.textContent = "⚠ Click again to detach";
+    btn.classList.add("danger");
+    clearTimeout(newSubjectTimer);
+    newSubjectTimer = setTimeout(() => {
+      newSubjectArmed = false;
+      btn.textContent = "🆕 New subject";
+      btn.classList.remove("danger");
+    }, 6000);
+    return;
+  }
+  clearTimeout(newSubjectTimer);
+  newSubjectArmed = false;
+  btn.textContent = "🆕 New subject";
+  btn.classList.remove("danger");
+  LiveSync.newSubject();
+};
 
 applyButtonLayout();
 initAdminButtonDrag();
