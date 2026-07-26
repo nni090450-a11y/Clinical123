@@ -18,6 +18,16 @@
   --red:#d64545;
   --bubble:#e0e0e0;
   --shadow:0 12px 30px rgba(0,0,0,.10);
+  --surface:#ffffff;
+  --surface-2:#f3f4f6;
+  --input-bg:#ffffff;
+  --btn-bg:#e9ecef;
+  --btn-text:#222222;
+  --accent-soft:#eaf2ff;
+  --ok-bg:#e7f8ee;   --ok-text:#0c7039;
+  --bad-bg:#fdeaea;  --bad-text:#a22626;
+  --good-btn-bg:#dcfce7; --good-btn-text:#166534;
+  --warn-btn-bg:#fee2e2; --warn-btn-text:#991b1b;
 }
 *{box-sizing:border-box}
 body{
@@ -28,24 +38,20 @@ body{
   min-height:100vh;
   padding:24px 12px 90px;
 }
-#bgImage,#bgVideo,#bgOverlay{position:fixed;inset:0;pointer-events:none}
-#bgImage{z-index:-4;background-size:cover;background-position:center;background-repeat:no-repeat}
-#bgVideo{z-index:-5;width:100%;height:100%;object-fit:cover;display:none}
-#bgOverlay{z-index:-3;background:rgba(255,255,255,0)}
 .app{max-width:930px;margin:0 auto}
 .header{text-align:center;margin-bottom:18px}
 .header h1{margin:0;font-size:clamp(26px,5vw,42px);letter-spacing:.2px}
-.header p{margin:8px 0 0;font-size:clamp(16px,3vw,21px);font-weight:800;color:#333}
-.card{background:var(--card-bg);border:1px solid #edf0f3;box-shadow:var(--shadow);border-radius:22px;padding:22px}
+.header p{margin:8px 0 0;font-size:clamp(16px,3vw,21px);font-weight:800;color:var(--text)}
+.card{background:var(--card-bg);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:22px;padding:22px}
 .session-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .session-title{font-weight:900;font-size:18px}
 .session-controls{display:flex;gap:10px;flex-wrap:wrap}
-button{border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer;background:#e9ecef;color:#222;transition:.15s ease}
+button{border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer;background:var(--btn-bg);color:var(--btn-text);transition:.15s ease}
 button:hover{filter:brightness(.96)}
 button:disabled{opacity:.45;cursor:not-allowed}
 .primary{background:var(--blue);color:#fff}
-.success{background:#dcfce7;color:#166534}
-.danger{background:#fee2e2;color:#991b1b}
+.success{background:var(--good-btn-bg);color:var(--good-btn-text)}
+.danger{background:var(--warn-btn-bg);color:var(--warn-btn-text)}
 .progress-wrap{height:12px;background:var(--track);border-radius:999px;overflow:hidden;margin:10px 0 14px}
 .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:999px;transition:width .25s ease}
 .bubbles{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
@@ -58,17 +64,17 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .options{display:grid;gap:12px}
 .option{width:100%;text-align:left;background:var(--option-bg);border:1px solid var(--border);border-radius:16px;padding:15px 16px;font-size:16px;line-height:1.35;font-weight:700;color:var(--text)}
 .option:hover{background:var(--option-hover)}
-.option.correct{background:#e7f8ee;border-color:var(--green);color:#0c7039}
-.option.wrong{background:#fdeaea;border-color:var(--red);color:#a22626}
+.option.correct{background:var(--ok-bg);border-color:var(--green);color:var(--ok-text)}
+.option.wrong{background:var(--bad-bg);border-color:var(--red);color:var(--bad-text)}
 .nav-row{display:flex;justify-content:space-between;gap:12px;margin-top:20px}
 .score-screen{text-align:center;padding:22px 8px}
 .score-circle{width:150px;height:150px;border-radius:50%;margin:12px auto 18px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#1a1a1a;background:radial-gradient(circle at center,var(--card-bg) 58%,transparent 59%),conic-gradient(var(--green) var(--score-deg,0deg),var(--track) 0deg)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
-.stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px}
 .stat strong{display:block;font-size:28px;margin-bottom:4px}
 .fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:var(--blue);color:#fff;font-size:25px;box-shadow:0 8px 20px rgba(0,0,0,.22);z-index:20}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.28);display:none;z-index:30;padding:14px;overflow:auto}
-.panel,.password-box{background:#fff;color:var(--text);width:min(100%,1080px);max-height:92vh;overflow:auto;margin:20px auto;border-radius:20px;box-shadow:var(--shadow);padding:18px}
+.panel,.password-box{background:var(--surface);color:var(--text);width:min(100%,1080px);max-height:92vh;overflow:auto;margin:20px auto;border-radius:20px;box-shadow:var(--shadow);padding:18px}
 .password-box{max-width:420px;margin:70px auto}
 .password-box h2,.panel h2{margin:0}
 .panel-top{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:14px}
@@ -77,9 +83,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .admin-actions > button{touch-action:manipulation;user-select:none}
 .admin-actions #securityBtn,.admin-actions #smartMoveQuestionBtn{width:46px;height:46px;border-radius:50%;font-size:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1}
 .move-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-#moveQuestionChecklist{max-height:260px;overflow:auto;background:#fff}
-#moveQuestionChecklist .check-row.active{background:#eaf2ff;border-radius:10px}
-.move-number-select{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;margin:10px 0 12px}
+#moveQuestionChecklist{max-height:260px;overflow:auto;background:var(--surface)}
+#moveQuestionChecklist .check-row.active{background:var(--accent-soft);border-radius:10px}
+.move-number-select{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px;margin:10px 0 12px}
 .move-number-row{display:flex;gap:8px;align-items:center}
 .move-number-row input{flex:1}
 .move-number-row button{white-space:nowrap}
@@ -90,29 +96,85 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .admin-actions #exportHtmlBtn{order:91}
 .admin-actions > button.free-placed,.admin-actions > button.dragging{position:static!important;left:auto!important;top:auto!important;width:auto!important;height:auto!important;margin:0!important;transform:none!important}
 .toolbar-hint{display:none}
+.q-image{width:100%;max-height:320px;object-fit:contain;border:1px solid var(--border);border-radius:14px;background:#fff;margin-bottom:4px}
+.option.selected{border-color:var(--blue);background:var(--accent-soft,#eaf2ff);box-shadow:inset 0 0 0 1px var(--blue)}
+.option.picked{font-weight:900}
+.multi-hint{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:2px}
+.check-btn{margin-top:4px}
+.text-answer-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.text-answer-row input{flex:1;min-width:170px;font-size:16px;font-weight:700}
+.text-answer-row button{white-space:nowrap}
+.why-box{margin-top:6px;padding:13px 15px;border-radius:14px;font-size:15px;line-height:1.45;font-weight:600;border:1px solid var(--border);background:var(--surface)}
+.why-ok{border-color:var(--green);background:var(--ok-bg);color:var(--ok-text)}
+.why-bad{border-color:var(--red);background:var(--bad-bg);color:var(--bad-text)}
+.bubble.partial{background:#e8a33d;color:#fff}
+.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inline-check{display:flex;align-items:center;gap:8px;font-weight:800;margin:12px 0 4px}
+.inline-check input{width:auto;margin:0}
+@media(max-width:720px){
+  .edit-grid{grid-template-columns:1fr}
+  .text-answer-row input{min-width:100%}
+}
+.mini-toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);
+  background:#1f2937;color:#fff;padding:12px 18px;border-radius:999px;font-weight:800;font-size:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.28);z-index:9999;max-width:92vw;text-align:center;
+  transition:transform .22s ease, opacity .22s ease;opacity:0;pointer-events:none}
+.mini-toast.show{transform:translate(-50%,0);opacity:1}
+@media print{
+  .fab,.overlay,.session-controls,.nav-row,.sync-pill,.mini-toast{display:none!important}
+  body{padding:0}
+  .card{box-shadow:none;border:0}
+}
+.btn-row{display:flex;align-items:center;gap:8px;padding:8px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.btn-row:last-child{border-bottom:0}
+.btn-row .grip{display:flex;gap:4px}
+.btn-row .grip button{padding:6px 9px;font-size:13px}
+.btn-icon-input{width:64px;text-align:center;flex:0 0 auto}
+.btn-row .btn-label-input{flex:1;min-width:120px}
+.btn-row .btn-what{font-size:12px;color:var(--muted);flex:0 0 100%;margin-left:2px}
+.btn-row label.inline{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;margin:0;white-space:nowrap}
+.btn-row label.inline input{width:auto;margin:0}
+.btn-add-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.btn-add-row select{flex:1;min-width:170px}
+.btn-add-row input{flex:1;min-width:110px}
+@media(max-width:720px){
+  .btn-row .btn-label-input{min-width:100%}
+  .btn-add-row select,.btn-add-row input,.btn-add-row button{min-width:100%}
+}
 .icon-action-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
 .icon-action-btn{width:46px;height:46px;border-radius:50%;font-size:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1}
 .icon-action-btn.wide{width:auto;min-width:46px;border-radius:999px;padding:0 14px;font-size:15px}
 .icon-btn{width:46px;height:46px;border-radius:50%;font-size:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1}
+/* Emoji keep their own colours, so a solid blue fill makes them muddy.
+   Sit them on a light disc with a coloured ring instead. */
+button.icon-btn,button.icon-action-btn{
+  background:var(--surface);
+  border:2px solid var(--blue);
+  color:var(--text);
+  box-shadow:0 1px 3px rgba(0,0,0,.10);
+}
+button.icon-btn:hover,button.icon-action-btn:hover{background:var(--accent-soft,#eaf2ff);filter:none}
+button.icon-btn.danger{border-color:var(--red)}
+button.icon-btn.success{border-color:var(--green)}
 .grid{display:grid;grid-template-columns:280px 1fr;gap:16px}
 .list-box{max-height:65vh;overflow:auto;border:1px solid var(--border);border-radius:14px;padding:8px}
-.list-item{width:100%;display:block;text-align:left;border-radius:10px;padding:9px;margin:4px 0;background:#f3f4f6;border:1px solid transparent;font-size:13px}
-.list-item.active{border-color:var(--blue);background:#eaf2ff}
+.list-item{width:100%;display:block;text-align:left;border-radius:10px;padding:9px;margin:4px 0;background:var(--surface-2);border:1px solid transparent;font-size:13px}
+.list-item.active{border-color:var(--blue);background:var(--accent-soft)}
 label{display:block;font-weight:900;margin:10px 0 6px}
-textarea,input,select{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px;font:inherit;background:#fff;color:var(--text)}
+textarea,input,select{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px;font:inherit;background:var(--input-bg);color:var(--text)}
 textarea{min-height:90px;resize:vertical}
-.small-muted{color:#777;font-size:13px;line-height:1.4}
+.small-muted{color:var(--muted);font-size:13px;line-height:1.4}
 .password-error{color:var(--red);font-weight:800;min-height:20px;margin-top:8px}
-.tool-box{display:none;background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;margin:12px 0}
+.tool-box{display:none;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin:12px 0}
 .option-row{display:flex;gap:8px;align-items:center;margin:8px 0}
 .option-row input{flex:1}
-.option-row button{white-space:nowrap;background:#fee2e2;color:#991b1b}
+.option-row button{white-space:nowrap;background:var(--warn-btn-bg);color:var(--warn-btn-text)}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .tab.active{background:var(--blue);color:#fff}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-.checkbox-list{border:1px solid var(--border);border-radius:14px;padding:10px;max-height:360px;overflow:auto;background:#fff}
-.check-row{display:flex;align-items:flex-start;gap:8px;padding:8px;border-bottom:1px solid #eee}
+.checkbox-list{border:1px solid var(--border);border-radius:14px;padding:10px;max-height:360px;overflow:auto;background:var(--surface)}
+.check-row{display:flex;align-items:flex-start;gap:8px;padding:8px;border-bottom:1px solid var(--border)}
 .check-row:last-child{border-bottom:0}
 .check-row input{width:auto;margin-top:2px}
 .admin-gear{width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;font-size:22px;display:inline-flex;align-items:center;justify-content:center;box-shadow:none;z-index:10;margin:0}
@@ -141,7 +203,7 @@ textarea{min-height:90px;resize:vertical}
 .password-field legend {
   padding:0 8px;
   font-size:13px;
-  color:#222;
+  color:var(--text);
 }
 .password-field input {
   width:100%;
@@ -168,7 +230,7 @@ textarea{min-height:90px;resize:vertical}
 
 
 .search-box {
-  background:#ffffff;
+  background:var(--surface);
   border:1px solid var(--border);
   border-radius:14px;
   padding:10px;
@@ -186,12 +248,12 @@ textarea{min-height:90px;resize:vertical}
   border-radius:10px;
   padding:9px;
   margin:4px 0;
-  background:#fff;
+  background:var(--surface);
   border:1px solid var(--border);
   font-size:13px;
 }
 .search-result:hover {
-  background:#eaf2ff;
+  background:var(--accent-soft);
   border-color:var(--blue);
 }
 .tool-box.active {
@@ -200,11 +262,11 @@ textarea{min-height:90px;resize:vertical}
 
 
 .tab-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
-.tab-btn{border:1px solid var(--border);background:#f1f3f5;color:#1a1a1a;border-radius:999px;padding:8px 12px;cursor:pointer}
+.tab-btn{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer}
 .tab-btn.active{background:#1976d2;color:white;border-color:#1976d2}
 .add-tab-panel{display:none}
 .add-tab-panel.active{display:block}
-.bulk-preview{border:1px solid var(--border);border-radius:12px;background:#fff;padding:10px;max-height:260px;overflow:auto;margin-top:10px}
+.bulk-preview{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px;max-height:260px;overflow:auto;margin-top:10px}
 .bulk-preview-item{border-bottom:1px solid var(--border);padding:8px 0}
 .bulk-preview-item:last-child{border-bottom:0}
 .bulk-ok{color:#2e7d32;font-weight:700}
@@ -218,7 +280,7 @@ textarea{min-height:90px;resize:vertical}
   padding:8px;
   border-radius:8px;
   border:1px solid var(--border);
-  background:#fff;
+  background:var(--surface);
 }
 
 
@@ -228,7 +290,7 @@ textarea{min-height:90px;resize:vertical}
   display:inline-flex;align-items:center;gap:7px;
   margin-top:10px;padding:5px 12px;
   border:1px solid var(--border);border-radius:999px;
-  background:#fff;font-size:12px;font-weight:800;color:#444;
+  background:var(--surface);font-size:12px;font-weight:800;color:var(--text);
   cursor:default;user-select:none;
 }
 .sync-pill::before{
@@ -238,7 +300,7 @@ textarea{min-height:90px;resize:vertical}
 }
 .sync-bar{
   border:1px solid var(--border);border-radius:16px;
-  background:#fbfcfd;padding:12px 14px;margin-bottom:14px;
+  background:var(--surface-2);padding:12px 14px;margin-bottom:14px;
 }
 .sync-bar-top{
   display:flex;justify-content:space-between;align-items:center;
@@ -255,6 +317,7 @@ textarea{min-height:90px;resize:vertical}
   .sync-bar-actions,.sync-key-row{width:100%}
   .sync-bar-actions button,.sync-key-row button{flex:1}
 }
+
 
 
 </style>
@@ -280,10 +343,6 @@ textarea{min-height:90px;resize:vertical}
         }
 </style></head>
 <body data-__gcrweb-annotatedpagecontent-processed="3CE02ECC62A12B7A2622F84E521C0041" style="background-color: rgb(255, 255, 255);">
-<div id="bgImage"></div>
-<video id="bgVideo" autoplay="" muted="" loop="" playsinline="" style="display: none;"></video>
-<div id="bgOverlay" style="background: rgba(255, 255, 255, 0);"></div>
-
 <div class="app">
   <header class="header">
     <h1 id="siteTitle">Norton University</h1>
@@ -315,6 +374,7 @@ textarea{min-height:90px;resize:vertical}
     <section id="scoreView" class="score-screen" style="display:none">
       <h2 id="scoreTitle">Session Complete</h2>
       <div class="score-circle" id="scoreCircle">0%</div>
+      <div class="small-muted" id="scorePoints"></div>
       <div class="stats">
         <div class="stat"><strong id="correctCount">0</strong>Correct</div>
         <div class="stat"><strong id="wrongCount">0</strong>Wrong</div>
@@ -345,7 +405,7 @@ textarea{min-height:90px;resize:vertical}
     <div class="panel-top">
       <div>
         <h2>Admin Panel</h2>
-        <div class="small-muted">Edit header, questions, options, correct answers, and background. Use ⚙️ for add/delete questions or sessions.</div>
+        <div class="small-muted">Edit header, questions, options, correct answers, and layout. Use ⚙️ for add/delete questions or sessions.</div>
       </div>
       <button id="closeAdmin">Close</button>
     </div>
@@ -369,16 +429,24 @@ textarea{min-height:90px;resize:vertical}
       <div class="small-muted" id="syncDetail"></div>
     </div>
 
-    <div class="actions admin-actions" id="adminActionButtons">
-      
-      
-      
-      
-      
-      
-      
-    <button class="primary icon-btn" id="headerBtn" data-action-key="headerBtn" title="Edit Header">🔨</button><button class="primary icon-btn" id="bgBtn" data-action-key="bgBtn" title="Background Manager">💻</button><button class="admin-gear" id="adminGearBtn" data-action-key="adminGearBtn" title="Options">⚙️</button><button class="primary icon-btn" id="securityBtn" data-action-key="securityBtn" title="Change Admin Password" aria-label="Change Admin Password">🔐</button><button class="primary icon-btn" id="smartMoveQuestionBtn" data-action-key="smartMoveQuestionBtn" type="button" title="Move selected question" aria-label="Move selected question">↕️</button><button class="danger" id="resetOriginalBtn" data-action-key="resetOriginalBtn">Reset to Original</button><button class="success" id="exportHtmlBtn" data-action-key="exportHtmlBtn">Export as HTML</button></div>
+    <div class="actions admin-actions" id="adminActionButtons"></div>
     <div class="toolbar-hint"></div>
+
+    <div class="tool-box" id="buttonBox">
+      <h3>Buttons</h3>
+      <div class="small-muted">Rename, re-icon, hide, reorder, or add buttons. Shared with every device.</div>
+      <div id="buttonManagerList"></div>
+      <h4 style="margin:16px 0 4px">Add a button</h4>
+      <div class="btn-add-row">
+        <select id="newButtonAction"></select>
+        <input id="newButtonIcon" maxlength="4" placeholder="Icon" class="btn-icon-input">
+        <input id="newButtonLabel" placeholder="Label">
+        <button class="primary" id="addButtonBtn" type="button">Add</button>
+      </div>
+      <div class="actions" style="margin-top:14px">
+        <button id="restoreButtonsBtn" type="button">Restore default buttons</button>
+      </div>
+    </div>
 
     <div class="tool-box" id="securityBox">
       <h3>Admin Security</h3>
@@ -449,20 +517,6 @@ textarea{min-height:90px;resize:vertical}
       <div class="actions"><button class="primary" id="saveHeaderBtn">Save Header</button></div>
     </div>
 
-    <div class="tool-box" id="bgBox">
-      <h3>Background Manager</h3>
-      <label>Image URL</label><input id="bgImageInput" placeholder="Paste image link here" __gcruniqueid="9">
-      <label>Video URL</label><input id="bgVideoInput" placeholder="Paste direct video link here" __gcruniqueid="10">
-      <label>Upload video from device</label><input type="file" id="bgVideoUpload" accept="video/*">
-      <label>Overlay opacity</label>
-      <div class="slider-row"><input type="range" id="bgOpacityInput" min="0" max="1" step="0.05"><span id="bgOpacityLabel">0</span></div>
-      <div class="actions">
-        <button id="videoPlayBtn" type="button">⏸️ Pause</button>
-        <button id="videoMuteBtn" type="button">🔇 Silent</button>
-        <button class="danger" id="removeBackgroundBtn">Remove Background</button>
-      </div>
-      <div class="small-muted">Video loops automatically from beginning to end. Some browsers only allow autoplay when muted.</div>
-    </div>
 
     <div class="grid">
       <div>
@@ -479,6 +533,37 @@ textarea{min-height:90px;resize:vertical}
         <label>Answer options</label><div id="adminOptionRows"><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div></div>
         <button id="adminAddOptionBtn" type="button">+ Add option</button>
         <label>Correct answer</label><select id="editAnswer" __gcruniqueid="17"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+
+        <div id="editMultiWrap" style="display:none">
+          <label>Correct answers — tick every right one</label>
+          <div class="checkbox-list" id="editMultiRows"></div>
+        </div>
+
+        <div id="editAcceptWrap" style="display:none">
+          <label>Accepted answers — one per line</label>
+          <textarea id="editAccept" placeholder="AFP&#10;alpha fetoprotein&#10;alpha-fetoprotein"></textarea>
+          <div class="small-muted">Matching ignores capitals, punctuation and extra spaces.</div>
+        </div>
+
+        <div class="edit-grid">
+          <div>
+            <label>Question type</label>
+            <select id="editType">
+              <option value="single">One correct answer</option>
+              <option value="multi">Select all that apply</option>
+              <option value="tf">True / False</option>
+              <option value="text">Typed answer</option>
+            </select>
+          </div>
+          <div>
+            <label>Points</label>
+            <input id="editPoints" type="number" min="0.5" step="0.5" value="1">
+          </div>
+        </div>
+
+        <label>Image URL (optional)</label><input id="editImage" placeholder="https://... shown above the options">
+        <label>Explanation shown after answering (optional)</label><textarea id="editWhy" placeholder="Why this answer is right"></textarea>
+        <label class="inline-check"><input type="checkbox" id="editRequired"> Must be answered before moving on</label>
         <div class="small-muted" id="moveQuestionInfo">Selected: Session 5 question 1 of 15.</div>
         <div class="small-muted">Changes save instantly to localStorage.</div>
       </div>
@@ -525,12 +610,24 @@ D. Option four" __gcruniqueid="22"></textarea>
 
         <label>Options</label><div id="newOptionRows"><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div><div class="option-row"><input><button type="button">Remove</button></div></div>
         <button id="newAddOptionBtn" type="button">+ Add more options</button>
-        <label>Correct answer</label><select id="newCorrectAnswer" __gcruniqueid="27"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+        <label class="inline-check"><input type="checkbox" id="newMultiToggle"> More than one correct answer</label>
+
+        <div id="newSingleAnswerWrap">
+          <label>Correct answer</label><select id="newCorrectAnswer" __gcruniqueid="27"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+        </div>
+
+        <div id="newMultiAnswerWrap" style="display:none">
+          <label>Tick every correct answer</label>
+          <div class="checkbox-list" id="newMultiRows"></div>
+          <div class="small-muted">Students tick their choices and press Check. Getting some right earns part of the marks.</div>
+        </div>
+
         <div class="actions"><button class="primary" id="saveNewQuestionBtn">Save New Question</button></div>
       </div>
 
       <div id="bulkQuestionPanel" class="add-tab-panel active">
-        <p class="small-muted">Flexible parser: accepts 1- / 1. / 1) / Question 1, options A- / A. / A) / A:, lowercase letters, optional Answer/Ans/Correct lines, blank-line separation, and different numbers of options.</p>
+        <p class="small-muted">Flexible parser: accepts 1- / 1. / 1) / Question 1, options A- / A. / A) / A:, lowercase letters, optional Answer/Ans/Correct lines, blank-line separation, and different numbers of options.<br>
+        <strong>More than one correct answer:</strong> write <code>Answer: A, C</code> — also accepted: <code>A and C</code>, <code>AC</code>, <code>A/C</code>, <code>1,3</code>. The answer key box takes the same, e.g. <code>7. B, D</code>.</p>
 
         <label>Choose which session to add them all to</label>
         <select id="bulkQuestionSession" __gcruniqueid="28"><option value="master">Session 0 — Master Question Bank (135)</option><option value="0">Session 1 (0)</option><option value="1">Session 2 (0)</option><option value="2">Session 3 (0)</option><option value="3">Session 4 (0)</option><option value="4">Session 5 (0)</option></select>
@@ -606,26 +703,7 @@ const ORIGINAL_HEADER = {
   "title": "Norton University",
   "subtitle": "Clinical Biochemistry"
 };
-const ORIGINAL_BACKGROUND = {
-  "imageUrl": "",
-  "videoUrl": "",
-  "uploadedVideoData": "",
-  "overlayOpacity": 0,
-  "muted": true,
-  "playing": true
-};
-const ORIGINAL_BUTTON_LAYOUT = {
-  "adminActionOrder": [
-    "headerBtn",
-    "bgBtn",
-    "adminGearBtn",
-    "securityBtn",
-    "smartMoveQuestionBtn",
-    "resetOriginalBtn",
-    "exportHtmlBtn"
-  ],
-  "adminButtonPositions": {}
-};
+const ORIGINAL_BUTTON_LAYOUT = { "buttons": [] };
 const ORIGINAL_SESSION_SIZES = [30,30,30,30,15];
 const ORIGINAL_MASTER_QUESTIONS = [
   {
@@ -3344,9 +3422,86 @@ let deleteSelected = new Set();
 function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
 function optionLabel(i){ return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i] || String(i + 1); }
 function normalizeQuestion(q){
-  const opts = Array.isArray(q.options) && q.options.length >= 2 ? q.options : ["A. Option A","B. Option B"];
-  const ans = Math.max(0, Math.min(Number(q.answer || 0), opts.length - 1));
-  return { q: q.q || "Untitled question", options: opts, answer: ans };
+  q = q || {};
+  // inline rather than a module const: loadState() runs before top-level
+  // consts below it are initialised, so a const here would be in the TDZ
+  const type = ["single", "multi", "tf", "text"].includes(q.type) ? q.type : "single";
+  let answer = 0, multi = [];
+
+  // Options and accepted answers are kept whatever the type is, so switching a
+  // question between types and back does not throw away work.
+  let options = Array.isArray(q.options) ? q.options.map(String) : [];
+  let accept = Array.isArray(q.accept) ? q.accept.map(x => String(x).trim()).filter(Boolean)
+             : (typeof q.accept === "string" ? q.accept.split("\n").map(x => x.trim()).filter(Boolean) : []);
+
+  if(type === "tf"){
+    options = ["True", "False"];
+    answer = Number(q.answer) === 1 ? 1 : 0;
+  }else if(type === "text"){
+    // options stay untouched; they are simply not used while it is a typed question
+  }else{
+    if(options.length < 2) options = ["A. Option A", "B. Option B"];
+    if(type === "multi"){
+      const raw = Array.isArray(q.answers) && q.answers.length ? q.answers : [Number(q.answer) || 0];
+      multi = [...new Set(raw.map(Number).filter(n => Number.isInteger(n) && n >= 0 && n < options.length))].sort((a, b) => a - b);
+      if(!multi.length) multi = [0];
+      answer = multi[0];
+    }else{
+      answer = Math.max(0, Math.min(Number(q.answer || 0), options.length - 1));
+    }
+  }
+
+  return {
+    q: q.q || "Untitled question",
+    type: type,
+    options: options,
+    answer: answer,
+    answers: multi,
+    accept: accept,
+    points: (Number(q.points) > 0) ? Number(q.points) : 1,
+    why: typeof q.why === "string" ? q.why : "",
+    image: typeof q.image === "string" ? q.image : "",
+    required: !!q.required
+  };
+}
+
+/* ---------- answers can now be an index, a list of indexes, or text ---------- */
+function isAnswered(v){
+  if(v === undefined || v === null) return false;
+  if(Array.isArray(v)) return v.length > 0;
+  if(typeof v === "string") return v.trim().length > 0;
+  return true;
+}
+function normalizeText(t){
+  return String(t).toLowerCase().trim()
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[.,;:!?()\[\]"']/g, "")
+    .replace(/\s+/g, " ");
+}
+// Returns { state, earned, max } — state is correct | partial | wrong | unanswered
+function gradeQuestion(q, v){
+  const max = q.points > 0 ? q.points : 1;
+  if(!isAnswered(v)) return { state: "unanswered", earned: 0, max: max };
+
+  if(q.type === "text"){
+    const given = normalizeText(v);
+    const hit = (q.accept || []).some(a => normalizeText(a) === given);
+    return { state: hit ? "correct" : "wrong", earned: hit ? max : 0, max: max };
+  }
+
+  if(q.type === "multi"){
+    const picked = Array.isArray(v) ? v : [v];
+    const right = q.answers || [];
+    const hits = picked.filter(i => right.includes(i)).length;
+    const misses = picked.filter(i => !right.includes(i)).length;
+    const net = Math.max(0, hits - misses);
+    const earned = right.length ? (max * net / right.length) : 0;
+    if(hits === right.length && misses === 0) return { state: "correct", earned: max, max: max };
+    return { state: earned > 0 ? "partial" : "wrong", earned: Math.round(earned * 100) / 100, max: max };
+  }
+
+  const ok = Number(v) === q.answer;
+  return { state: ok ? "correct" : "wrong", earned: ok ? max : 0, max: max };
 }
 function buildOriginalState(){
   let idx = 0;
@@ -3357,7 +3512,7 @@ function buildOriginalState(){
   });
   const masterSource = Array.isArray(ORIGINAL_MASTER_QUESTIONS) ? ORIGINAL_MASTER_QUESTIONS : ORIGINAL_QUESTIONS;
   const masterQuestions = masterSource.map(q => normalizeQuestion(deepClone(q)));
-  return { header: deepClone(ORIGINAL_HEADER), background: deepClone(ORIGINAL_BACKGROUND), buttonLayout: deepClone(ORIGINAL_BUTTON_LAYOUT), adminPassword: ADMIN_PASSWORD, masterQuestions, sessions };
+  return { header: deepClone(ORIGINAL_HEADER), buttonLayout: deepClone(ORIGINAL_BUTTON_LAYOUT), adminPassword: ADMIN_PASSWORD, masterQuestions, sessions };
 }
 function loadState(){
   try{
@@ -3365,14 +3520,11 @@ function loadState(){
     if(saved){
       const parsed = JSON.parse(saved);
       if(parsed && parsed.header && Array.isArray(parsed.sessions)){
-        if(!parsed.background) parsed.background = deepClone(ORIGINAL_BACKGROUND);
+        delete parsed.background;
+        delete parsed.theme;
         if(!parsed.buttonLayout) parsed.buttonLayout = deepClone(ORIGINAL_BUTTON_LAYOUT);
-        if(!Array.isArray(parsed.buttonLayout.adminActionOrder)){
-          parsed.buttonLayout.adminActionOrder = deepClone(ORIGINAL_BUTTON_LAYOUT.adminActionOrder);
-        }
-        if(!parsed.buttonLayout.adminButtonPositions || typeof parsed.buttonLayout.adminButtonPositions !== "object"){
-          parsed.buttonLayout.adminButtonPositions = {};
-        }
+        delete parsed.buttonLayout.adminActionOrder;
+        delete parsed.buttonLayout.adminButtonPositions;
         if(!parsed.adminPassword) parsed.adminPassword = ADMIN_PASSWORD;
         if(!Array.isArray(parsed.masterQuestions)){
           parsed.masterQuestions = parsed.sessions.flatMap(s => (s.questions || []).map(q => normalizeQuestion(deepClone(q))));
@@ -3384,8 +3536,22 @@ function loadState(){
   return buildOriginalState();
 }
 function saveState(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){
+    // Nothing heavy is stored any more (themes are a few bytes), so this only
+    // fires if the browser's storage is genuinely full.
+    alertQuotaOnce("Browser storage is full — recent changes could not be saved on this device.");
+  }
   try{ LiveSync.onLocalChange(); }catch(e){}
+}
+let quotaWarned = false;
+function alertQuotaOnce(msg){
+  console.warn(msg);
+  if(quotaWarned) return;
+  quotaWarned = true;
+  const el = document.getElementById("syncDetail");
+  if(el){ el.textContent = msg; el.style.color = "var(--red)"; }
 }
 
 /* ======================================================================
@@ -3409,7 +3575,7 @@ const SYNC_CONFIG = {
   pollSeconds: 25                     // fallback poll if realtime drops
 };
 const SYNC_WRITE_KEY_STORE = "nortonQuizWriteKey";
-const SYNC_FIELDS = ["header","background","buttonLayout","masterQuestions","sessions"];
+const SYNC_FIELDS = ["header","buttonLayout","masterQuestions","sessions","adminPassword"];
 
 const LiveSync = (function(){
   let client = null, ready = false, applying = false, channel = null;
@@ -3422,6 +3588,8 @@ const LiveSync = (function(){
   function canPublish(){ return configured() && !!writeKey(); }
 
   /* ---------- what actually travels over the wire ---------- */
+  // Everything shared is small: header, theme, button order, questions, and the
+  // admin password. No blobs, so a published version stays tens of kilobytes.
   function contentFromState(){
     const out = {};
     SYNC_FIELDS.forEach(k => { if(state[k] !== undefined) out[k] = state[k]; });
@@ -3447,7 +3615,6 @@ const LiveSync = (function(){
 
     const incoming = {
       header: content.header || deepClone(ORIGINAL_HEADER),
-      background: content.background || deepClone(ORIGINAL_BACKGROUND),
       buttonLayout: content.buttonLayout || deepClone(ORIGINAL_BUTTON_LAYOUT),
       masterQuestions: Array.isArray(content.masterQuestions) ? content.masterQuestions.map(q => normalizeQuestion(q)) : [],
       sessions: content.sessions.map((s, i) => ({
@@ -3456,9 +3623,9 @@ const LiveSync = (function(){
       }))
     };
     if(!incoming.buttonLayout || typeof incoming.buttonLayout !== "object") incoming.buttonLayout = deepClone(ORIGINAL_BUTTON_LAYOUT);
-    if(!Array.isArray(incoming.buttonLayout.adminActionOrder)) incoming.buttonLayout.adminActionOrder = deepClone(ORIGINAL_BUTTON_LAYOUT.adminActionOrder);
-    if(!incoming.buttonLayout.adminButtonPositions || typeof incoming.buttonLayout.adminButtonPositions !== "object") incoming.buttonLayout.adminButtonPositions = {};
     if(!incoming.masterQuestions.length) incoming.masterQuestions = incoming.sessions.flatMap(s => s.questions.map(q => normalizeQuestion(deepClone(q))));
+
+    incoming.adminPassword = content.adminPassword || state.adminPassword || ADMIN_PASSWORD;
 
     if(fingerprint(incoming) === fingerprint(contentFromState())){
       if(newRev) rev = newRev;
@@ -3468,7 +3635,6 @@ const LiveSync = (function(){
     const before = questionTextMap();
     applying = true;
     try{
-      incoming.adminPassword = state.adminPassword; // password is per-file, never synced
       state = incoming;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       dropStaleAnswers(before);
@@ -3487,14 +3653,18 @@ const LiveSync = (function(){
   function refreshAdminViews(){
     const panel = document.getElementById("adminPanel");
     if(!panel || panel.style.display === "none") return;
-    try{ renderAdminList(); }catch(e){}
-    try{ loadAdminEditor(); }catch(e){}
-    try{ refreshOptionsPanel(); }catch(e){}
-    // keep the header boxes in step, unless the admin is typing in one
+    // Never yank a field out from under someone who is mid-sentence.
+    let typingInEditor = false, typingInHeader = false;
     try{
-      const a = document.activeElement, id = a && a.id;
-      if(id !== "headerTitleInput" && id !== "headerSubtitleInput") loadHeaderInputs();
+      const a = document.activeElement, id = (a && a.id) || "";
+      typingInHeader = id === "headerTitleInput" || id === "headerSubtitleInput";
+      typingInEditor = id === "editQ" || id === "editAnswer" ||
+                       !!(a && a.closest && a.closest("#adminOptionRows"));
     }catch(e){}
+    try{ renderAdminList(); }catch(e){}
+    if(!typingInEditor){ try{ loadAdminEditor(); }catch(e){} }
+    try{ refreshOptionsPanel(); }catch(e){}
+    if(!typingInHeader){ try{ loadHeaderInputs(); }catch(e){} }
   }
 
   /* ---------- library ---------- */
@@ -3598,12 +3768,19 @@ const LiveSync = (function(){
     clearTimeout(pushTimer); pushTimer = null;
     if(!ready){ setStatus("error", "Not connected — edits saved on this device only."); return false; }
     if(!canPublish()){ setStatus("readonly", "No write key on this device — edits are local only."); return false; }
+    const payload = contentFromState();
+    const bytes = fingerprint(payload).length;
+    if(bytes > 900000){
+      setStatus("error", "Too large to publish (" + Math.round(bytes / 1024) + " KB). " +
+        "Trim questions, or use a background image/video URL instead of an uploaded file.");
+      return false;
+    }
     setStatus("saving", "");
     try{
       const { data, error } = await client.rpc("publish_quiz", {
         p_id: SYNC_CONFIG.quizId,
         p_key: writeKey(),
-        p_content: contentFromState()
+        p_content: payload
       });
       if(error) throw error;
       keyRejected = false;
@@ -3829,72 +4006,330 @@ function applyHeader(){
   document.getElementById("siteTitle").textContent = state.header.title || ORIGINAL_HEADER.title;
   document.getElementById("siteSubtitle").textContent = state.header.subtitle || ORIGINAL_HEADER.subtitle;
 }
-function normalizeAdminActionOrder(order){
-  const first = ["headerBtn", "bgBtn", "adminGearBtn", "securityBtn", "smartMoveQuestionBtn"];
-  const last = ["resetOriginalBtn", "exportHtmlBtn"];
-  const given = Array.isArray(order) ? order.map(id => (id === "moveQuestionUpBtn" || id === "moveQuestionDownBtn") ? "smartMoveQuestionBtn" : id) : [];
-  const middle = given.filter(id => first.includes(id));
-  first.forEach(id => { if(!middle.includes(id)) middle.push(id); });
-  return middle.concat(last);
+/* ======================================================================
+   ADMIN BUTTONS — every toolbar button is data, not markup.
+   A button is { id, action, icon, label, showLabel, variant, hidden }.
+   "action" points at one entry in ADMIN_ACTIONS below; that is the whole
+   list of things a button can be made to do.
+   ====================================================================== */
+const ADMIN_ACTIONS = {
+  buttonManager:  { name: "Buttons (this manager)", icon: "\u{1F39B}\uFE0F", run: () => { renderButtonManager(); showToolBox("buttonBox"); } },
+  editHeader:     { name: "Edit header",            icon: "\u{1F528}",       run: () => { loadHeaderInputs(); showToolBox("headerBox"); } },
+  options:        { name: "Options (add / delete)", icon: "\u2699\uFE0F",   run: () => openOptions() },
+  changePw:       { name: "Change admin password",  icon: "\u{1F510}",       run: () => showToolBox("securityBox") },
+  moveQuestion:   { name: "Move question",          icon: "\u2195\uFE0F",   run: () => { showToolBox("moveQuestionBox"); refreshSmartMovePanel(); } },
+  searchQuestion: { name: "Search questions",       icon: "\u{1F50D}",       run: () => { const el = document.getElementById("questionSearchInput"); if(el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.focus(); } } },
+  addQuestion:    { name: "Add a question",         icon: "\u2795",          run: () => { openOptions(); setActiveTab("addQuestionPane"); } },
+  deleteQuestion: { name: "Delete questions",       icon: "\u{1F5D1}\uFE0F",run: () => { openOptions(); setActiveTab("deleteQuestionPane"); } },
+  addSession:     { name: "Add a session",          icon: "\u{1F4C1}",       run: () => { openOptions(); setActiveTab("addSessionPane"); } },
+  deleteSession:  { name: "Delete a session",       icon: "\u{1F4C2}",       run: () => { openOptions(); setActiveTab("deleteSessionPane"); } },
+  publish:        { name: "Publish now",            icon: "\u2B06\uFE0F",   run: () => { saveAdminEditor(); saveHeader(); LiveSync.push(); } },
+  pull:           { name: "Pull latest",            icon: "\u27F3",          run: () => LiveSync.pull() },
+  newSubject:     { name: "New subject",            icon: "\u{1F195}",       run: () => LiveSync.newSubject() },
+  backToOriginal: { name: "Back to original subject", icon: "\u21A9\uFE0F", run: () => LiveSync.backToOriginal() },
+  diagnostics:    { name: "Copy diagnostics",       icon: "\u{1FA7A}",       run: (btn) => copyDiagnostics(btn) },
+  exportHtml:     { name: "Export as HTML",         icon: "\u{1F4BE}",       run: () => exportAsHtml() },
+  resetOriginal:  { name: "Reset to original",      icon: "\u267B\uFE0F",   run: () => resetOriginal() },
+  closeAdmin:     { name: "Close admin panel",      icon: "\u2716\uFE0F",   run: () => closeAdmin() },
+
+  /* ---- moving around the quiz ---- */
+  nextSession:    { name: "Next session",           icon: "\u23ED\uFE0F",   run: () => { if(currentSessionIndex < state.sessions.length - 1) switchSession(1); else toast("Already on the last session."); } },
+  prevSession:    { name: "Previous session",       icon: "\u23EE\uFE0F",   run: () => { if(currentSessionIndex > 0) switchSession(-1); else toast("Already on the first session."); } },
+  firstQuestion:  { name: "Jump to first question", icon: "\u23EA",          run: () => { currentQuestionIndex = 0; showScore = false; render(); } },
+  lastQuestion:   { name: "Jump to last question",  icon: "\u23E9",          run: () => { currentQuestionIndex = Math.max(0, currentSession().questions.length - 1); showScore = false; render(); } },
+  finishSession:  { name: "Finish / show score",    icon: "\u{1F3C1}",       run: () => { showScore = true; render(); } },
+  restartSession: { name: "Restart this session",   icon: "\u{1F504}",       run: (btn) => armOnce(btn, "\u26a0 Click again", () => {
+                      currentSession().questions.forEach((_, i) => delete answers[questionKey(currentSessionIndex, i)]);
+                      currentQuestionIndex = 0; showScore = false; render(); toast("This session's answers cleared.");
+                    }) },
+  resetAllAnswers:{ name: "Clear ALL my answers",   icon: "\u{1F9F9}",       run: (btn) => armOnce(btn, "\u26a0 Click again", () => {
+                      Object.keys(answers).forEach(k => delete answers[k]);
+                      currentQuestionIndex = 0; showScore = false; render(); toast("All answers cleared on this device.");
+                    }) },
+
+  /* ---- editing the question you have selected ---- */
+  saveQuestion:   { name: "Save current question",  icon: "\u{1F4BE}",       run: () => { saveAdminEditor(); toast("Question saved."); } },
+  duplicateQuestion:{ name: "Duplicate question",   icon: "\u29C9",          run: () => {
+                      const { sess, q } = adminSessionAndQuestion();
+                      if(!sess || !q){ toast("No question selected."); return; }
+                      saveAdminEditor();
+                      sess.questions.splice(selectedAdmin.question + 1, 0, normalizeQuestion(deepClone(q)));
+                      selectedAdmin.question += 1;
+                      afterAdminEdit("Duplicated. You are now on the copy.");
+                    } },
+  deleteQuestionNow:{ name: "Delete current question", icon: "\u274C",       run: (btn) => {
+                      const { sess, q } = adminSessionAndQuestion();
+                      if(!sess || !q){ toast("No question selected."); return; }
+                      armOnce(btn, "\u26a0 Click again", () => {
+                        sess.questions.splice(selectedAdmin.question, 1);
+                        selectedAdmin.question = Math.max(0, Math.min(selectedAdmin.question, sess.questions.length - 1));
+                        afterAdminEdit("Question deleted.");
+                      });
+                    } },
+  addOption:      { name: "Add an answer option",   icon: "\u2795",          run: () => {
+                      const rows = document.getElementById("adminOptionRows");
+                      if(!rows){ toast("Open a question first."); return; }
+                      const row = makeOptionRow("adminOptionRows", "", saveAdminEditor);
+                      rows.appendChild(row);
+                      // Blank options are discarded on save, so the new row only
+                      // becomes a real option once it has text — put the cursor in it.
+                      const input = row.querySelector("input");
+                      if(input){ input.scrollIntoView({behavior:"smooth", block:"center"}); input.focus(); }
+                      toast("Type the new option — it saves as you type.");
+                    } },
+  shuffleQuestions:{ name: "Shuffle questions in this session", icon: "\u{1F500}", run: (btn) => {
+                      const sess = getAdminSession(selectedAdmin.session);
+                      if(!sess || sess.questions.length < 2){ toast("Not enough questions to shuffle."); return; }
+                      armOnce(btn, "\u26a0 Click again", () => {
+                        shuffleInPlace(sess.questions);
+                        selectedAdmin.question = 0;
+                        Object.keys(answers).forEach(k => delete answers[k]);
+                        afterAdminEdit("Questions shuffled.");
+                      });
+                    } },
+  shuffleOptions: { name: "Shuffle this question's options", icon: "\u{1F3B2}", run: () => {
+                      const { q } = adminSessionAndQuestion();
+                      if(!q || q.options.length < 2){ toast("No question selected."); return; }
+                      saveAdminEditor();
+                      const correct = q.options[q.answer];
+                      shuffleInPlace(q.options);
+                      q.answer = Math.max(0, q.options.indexOf(correct));
+                      afterAdminEdit("Options shuffled, correct answer kept.");
+                    } },
+  bulkImport:     { name: "Paste in many questions", icon: "\u{1F4CB}",      run: () => {
+                      openOptions(); setActiveTab("addQuestionPane");
+                      const ta = document.getElementById("bulkQuestionsText");
+                      if(ta){ ta.scrollIntoView({behavior:"smooth", block:"center"}); ta.focus(); }
+                    } },
+
+  /* ---- odds and ends ---- */
+  copyLink:       { name: "Copy this quiz's link",  icon: "\u{1F517}",       run: async (btn) => {
+                      try{ await navigator.clipboard.writeText(location.href); toast("Link copied."); }
+                      catch(e){ toast("Copy failed \u2014 the address bar has it."); }
+                    } },
+  exportJson:     { name: "Download questions as JSON", icon: "\u{1F4E6}",   run: () => {
+                      const data = JSON.stringify({ header: state.header, sessions: state.sessions }, null, 2);
+                      const blob = new Blob([data], { type: "application/json" });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement("a");
+                      a.href = url; a.download = (state.header.subtitle || "quiz").replace(/[^a-z0-9]+/gi, "_") + ".json";
+                      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+                      toast("JSON downloaded.");
+                    } },
+  printQuiz:      { name: "Print / save as PDF",    icon: "\u{1F5A8}\uFE0F", run: () => window.print() },
+  fullscreen:     { name: "Toggle fullscreen",      icon: "\u26F6",          run: () => {
+                      if(document.fullscreenElement) document.exitFullscreen();
+                      else document.documentElement.requestFullscreen().catch(() => toast("Fullscreen was refused."));
+                    } },
+  quizStats:      { name: "Show quiz totals",       icon: "\u{1F4CA}",       run: () => {
+                      const sessions = state.sessions.length;
+                      const total = state.sessions.reduce((n, x) => n + x.questions.length, 0);
+                      const master = (state.masterQuestions || []).length;
+                      const done = Object.keys(answers).length;
+                      toast(sessions + " sessions \u00b7 " + total + " questions \u00b7 " + master + " in master bank \u00b7 " + done + " answered here");
+                    } }
+};
+
+function toast(msg){
+  let el = document.getElementById("miniToast");
+  if(!el){
+    el = document.createElement("div");
+    el.id = "miniToast";
+    el.className = "mini-toast";
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("show"), 3200);
 }
+
+// Destructive button actions ask for a second click instead of a blocking confirm().
+const armed = new WeakMap();
+function armOnce(btn, warning, run){
+  if(!btn){ run(); return; }
+  if(armed.get(btn)){
+    clearTimeout(armed.get(btn).timer);
+    armed.delete(btn);
+    btn.textContent = armed.original || btn.textContent;
+    applyButtonLayout();
+    run();
+    return;
+  }
+  const original = btn.textContent;
+  btn.textContent = warning;
+  const timer = setTimeout(() => { armed.delete(btn); btn.textContent = original; }, 5000);
+  armed.set(btn, { timer: timer, original: original });
+}
+
+function adminSessionAndQuestion(){
+  const sess = getAdminSession(selectedAdmin.session);
+  const q = sess && sess.questions[selectedAdmin.question];
+  return { sess: sess, q: q };
+}
+function shuffleInPlace(arr){
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function afterAdminEdit(msg){
+  saveState();
+  renderAdminList();
+  loadAdminEditor();
+  render();
+  if(msg) toast(msg);
+}
+
+function defaultAdminButtons(){
+  return [
+    { id:"b_header",  action:"editHeader",    icon:"\u{1F528}",        label:"Edit Header",       showLabel:false, variant:"primary" },
+    { id:"b_options", action:"options",       icon:"\u2699\uFE0F",    label:"Options",           showLabel:false, variant:"primary" },
+    { id:"b_pw",      action:"changePw",      icon:"\u{1F510}",        label:"Password",          showLabel:false, variant:"primary" },
+    { id:"b_move",    action:"moveQuestion",  icon:"\u2195\uFE0F",    label:"Move question",     showLabel:false, variant:"primary" },
+    { id:"b_buttons", action:"buttonManager", icon:"\u{1F39B}\uFE0F", label:"Buttons",           showLabel:false, variant:"primary" },
+    { id:"b_reset",   action:"resetOriginal", icon:"\u267B\uFE0F",    label:"Reset to Original", showLabel:true,  variant:"danger" },
+    { id:"b_export",  action:"exportHtml",    icon:"\u{1F4BE}",        label:"Export as HTML",    showLabel:true,  variant:"success" }
+  ];
+}
+
+function normalizeButtonDef(d, i){
+  const action = ADMIN_ACTIONS[d && d.action] ? d.action : "options";
+  return {
+    id: (d && d.id) || ("b_" + action + "_" + i),
+    action: action,
+    icon: (d && typeof d.icon === "string") ? d.icon.slice(0, 4) : ADMIN_ACTIONS[action].icon,
+    label: (d && typeof d.label === "string" && d.label.trim()) ? d.label.trim().slice(0, 40) : ADMIN_ACTIONS[action].name,
+    showLabel: !!(d && d.showLabel),
+    variant: ["primary","danger","success","plain"].includes(d && d.variant) ? d.variant : "primary",
+    hidden: !!(d && d.hidden)
+  };
+}
+
+function ensureButtonModel(){
+  state.buttonLayout = state.buttonLayout || {};
+  let list = state.buttonLayout.buttons;
+  if(!Array.isArray(list) || !list.length) list = defaultAdminButtons();
+  list = list.map(normalizeButtonDef);
+  // The manager must always stay reachable, or there is no way back.
+  if(!list.some(d => d.action === "buttonManager")){
+    list.push(normalizeButtonDef({ id:"b_buttons", action:"buttonManager", icon:"\u{1F39B}\uFE0F", label:"Buttons" }, 99));
+  }
+  list.forEach(d => { if(d.action === "buttonManager") d.hidden = false; });
+  state.buttonLayout.buttons = list;
+  return list;
+}
+
 function applyButtonLayout(){
   const row = document.getElementById("adminActionButtons");
   if(!row) return;
-  state.buttonLayout = state.buttonLayout || deepClone(ORIGINAL_BUTTON_LAYOUT);
-  state.buttonLayout.adminActionOrder = normalizeAdminActionOrder(state.buttonLayout.adminActionOrder);
-  state.buttonLayout.adminButtonPositions = {};
-  state.buttonLayout.adminActionOrder.forEach(id => {
-    const btn = document.getElementById(id);
-    if(!btn) return;
-    if(btn.parentElement !== row) row.appendChild(btn);
-    else row.appendChild(btn);
-    btn.classList.remove("free-placed", "dragging");
-    btn.removeAttribute("style");
+  const list = ensureButtonModel();
+  row.innerHTML = "";
+  list.forEach(def => {
+    if(def.hidden) return;
+    const act = ADMIN_ACTIONS[def.action];
+    if(!act) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.dataset.actionKey = def.id;
+    btn.dataset.action = def.action;   // stable hook: [data-action="exportHtml"]
+    const iconOnly = !def.showLabel;
+    btn.className = (def.variant === "plain" ? "" : def.variant) + (iconOnly ? " icon-btn" : "");
+    btn.textContent = iconOnly ? (def.icon || "\u2022") : ((def.icon ? def.icon + " " : "") + def.label);
+    btn.title = def.label + " \u2014 " + act.name;
+    btn.setAttribute("aria-label", def.label);
+    btn.onclick = () => act.run(btn);
+    row.appendChild(btn);
   });
 }
-function saveAdminButtonOrder(){
-  const row = document.getElementById("adminActionButtons");
-  if(!row) return;
-  state.buttonLayout = state.buttonLayout || deepClone(ORIGINAL_BUTTON_LAYOUT);
-  state.buttonLayout.adminActionOrder = Array.from(row.querySelectorAll("button[data-action-key]")).map(btn => btn.dataset.actionKey);
-  state.buttonLayout.adminButtonPositions = {};
-  saveState();
-}
-function initAdminButtonDrag(){
-  applyButtonLayout();
+
+function saveAdminButtonOrder(){ /* order now lives in the model, nothing to scrape */ }
+function initAdminButtonDrag(){ applyButtonLayout(); }
+
+/* ---------------- the manager UI ---------------- */
+function renderButtonManager(){
+  const box = document.getElementById("buttonManagerList");
+  if(!box) return;
+  const list = ensureButtonModel();
+  box.innerHTML = "";
+
+  list.forEach((def, i) => {
+    const act = ADMIN_ACTIONS[def.action];
+    const row = document.createElement("div");
+    row.className = "btn-row";
+
+    const grip = document.createElement("div");
+    grip.className = "grip";
+    const up = document.createElement("button");
+    up.type = "button"; up.textContent = "\u2191"; up.title = "Move left";
+    up.disabled = i === 0;
+    up.onclick = () => { const l = ensureButtonModel(); [l[i-1], l[i]] = [l[i], l[i-1]]; commitButtons(); };
+    const down = document.createElement("button");
+    down.type = "button"; down.textContent = "\u2193"; down.title = "Move right";
+    down.disabled = i === list.length - 1;
+    down.onclick = () => { const l = ensureButtonModel(); [l[i+1], l[i]] = [l[i], l[i+1]]; commitButtons(); };
+    grip.appendChild(up); grip.appendChild(down);
+    row.appendChild(grip);
+
+    const icon = document.createElement("input");
+    icon.className = "btn-icon-input"; icon.maxLength = 4; icon.value = def.icon;
+    icon.oninput = () => { ensureButtonModel()[i].icon = icon.value.slice(0,4); commitButtons(true); };
+    row.appendChild(icon);
+
+    const label = document.createElement("input");
+    label.className = "btn-label-input"; label.value = def.label;
+    label.oninput = () => { ensureButtonModel()[i].label = label.value.slice(0,40); commitButtons(true); };
+    row.appendChild(label);
+
+    const showWrap = document.createElement("label");
+    showWrap.className = "inline";
+    const show = document.createElement("input");
+    show.type = "checkbox"; show.checked = def.showLabel;
+    show.onchange = () => { ensureButtonModel()[i].showLabel = show.checked; commitButtons(true); };
+    showWrap.appendChild(show); showWrap.appendChild(document.createTextNode("label"));
+    row.appendChild(showWrap);
+
+    const visWrap = document.createElement("label");
+    visWrap.className = "inline";
+    const vis = document.createElement("input");
+    vis.type = "checkbox"; vis.checked = !def.hidden;
+    vis.disabled = def.action === "buttonManager";
+    vis.onchange = () => { ensureButtonModel()[i].hidden = !vis.checked; commitButtons(true); };
+    visWrap.appendChild(vis); visWrap.appendChild(document.createTextNode("show"));
+    row.appendChild(visWrap);
+
+    const del = document.createElement("button");
+    del.type = "button"; del.className = "danger"; del.textContent = "Remove";
+    del.disabled = def.action === "buttonManager";
+    del.onclick = () => { const l = ensureButtonModel(); l.splice(i, 1); commitButtons(); };
+    row.appendChild(del);
+
+    const what = document.createElement("div");
+    what.className = "btn-what";
+    what.textContent = "does: " + (act ? act.name : def.action);
+    row.appendChild(what);
+
+    box.appendChild(row);
+  });
+
+  const sel = document.getElementById("newButtonAction");
+  if(sel && !sel.options.length){
+    Object.keys(ADMIN_ACTIONS).forEach(key => {
+      const o = document.createElement("option");
+      o.value = key; o.textContent = ADMIN_ACTIONS[key].name;
+      sel.appendChild(o);
+    });
+  }
 }
 
-function applyBackground(){
-  const bg = state.background || ORIGINAL_BACKGROUND;
-  const img = document.getElementById("bgImage");
-  const video = document.getElementById("bgVideo");
-  const overlay = document.getElementById("bgOverlay");
-  const videoSource = bg.uploadedVideoData || bg.videoUrl || "";
-  img.style.backgroundImage = bg.imageUrl ? `url("${bg.imageUrl}")` : "";
-  if(videoSource){
-    if(video.src !== videoSource) video.src = videoSource;
-    video.muted = bg.muted !== false;
-    video.loop = true;
-    video.playsInline = true;
-    video.style.display = "block";
-    if(bg.playing !== false) video.play().catch(()=>{});
-    else video.pause();
-  } else {
-    video.pause();
-    video.removeAttribute("src");
-    video.style.display = "none";
-  }
-  overlay.style.background = `rgba(255,255,255,${Number(bg.overlayOpacity || 0)})`;
-  document.body.style.backgroundColor = bg.imageUrl || videoSource ? "transparent" : "#ffffff";
-  updateVideoButtons();
+// redraw=true keeps focus in the field being typed into
+function commitButtons(skipRedraw){
+  saveState();
+  applyButtonLayout();
+  if(!skipRedraw) renderButtonManager();
 }
-function updateVideoButtons(){
-  const bg = state.background || ORIGINAL_BACKGROUND;
-  const playBtn = document.getElementById("videoPlayBtn");
-  const muteBtn = document.getElementById("videoMuteBtn");
-  if(playBtn) playBtn.textContent = bg.playing === false ? "▶️ Play" : "⏸️ Pause";
-  if(muteBtn) muteBtn.textContent = bg.muted === false ? "🔊 Sound" : "🔇 Silent";
-}
+
 function currentSession(){ return state.sessions[currentSessionIndex] || state.sessions[0]; }
 function questionKey(si, qi){ return `${si}:${qi}`; }
 function ensurePosition(){
@@ -3905,25 +4340,23 @@ function ensurePosition(){
 }
 function answerState(si, qi){
   const s = state.sessions[si]; if(!s || !s.questions[qi]) return "unanswered";
-  const chosen = answers[questionKey(si,qi)];
-  if(chosen === undefined || chosen === null) return "unanswered";
-  return chosen === s.questions[qi].answer ? "correct" : "wrong";
+  return gradeQuestion(s.questions[qi], answers[questionKey(si, qi)]).state;
 }
 function render(){
   applyHeader();
-  applyBackground();
   applyButtonLayout();
   ensurePosition();
   const s = currentSession();
   document.getElementById("sessionTitle").textContent = `Session ${currentSessionIndex + 1} of ${state.sessions.length}`;
   document.getElementById("prevSessionBtn").disabled = currentSessionIndex === 0;
   document.getElementById("nextSessionBtn").disabled = currentSessionIndex === state.sessions.length - 1;
-  const answered = s.questions.filter((_,i)=>answers[questionKey(currentSessionIndex,i)] !== undefined).length;
+  const answered = s.questions.filter((_,i)=>isAnswered(answers[questionKey(currentSessionIndex,i)])).length;
   document.getElementById("progressFill").style.width = (s.questions.length ? answered / s.questions.length * 100 : 0) + "%";
   renderBubbles();
   if(showScore) renderScore(); else renderQuestion();
 }
 function renderBubbles(){
+  // states: correct | partial | wrong | unanswered
   const s = currentSession();
   const box = document.getElementById("bubbles");
   box.innerHTML = "";
@@ -3932,6 +4365,7 @@ function renderBubbles(){
     b.className = "bubble";
     const st = answerState(currentSessionIndex, i);
     if(st === "correct") b.classList.add("correct");
+    if(st === "partial") b.classList.add("partial");
     if(st === "wrong") b.classList.add("wrong");
     if(!showScore && i === currentQuestionIndex) b.classList.add("active");
     b.textContent = i + 1;
@@ -3939,53 +4373,184 @@ function renderBubbles(){
     box.appendChild(b);
   });
 }
+let pendingPicks = {};   // multi-answer selections not yet checked
+
 function renderQuestion(){
   document.getElementById("questionView").style.display = "";
   document.getElementById("scoreView").style.display = "none";
   const s = currentSession();
   const q = s.questions[currentQuestionIndex];
+  const extras = document.getElementById("questionExtras");
+  if(extras) extras.innerHTML = "";
+
   if(!q){
     document.getElementById("questionCounter").textContent = "No questions";
     document.getElementById("answeredCounter").textContent = "";
-    document.getElementById("questionText").textContent = "This session is empty. Use ⚙️ Options inside Admin Panel to add questions.";
+    document.getElementById("questionText").textContent = "This session is empty. Use the Options button inside the Admin Panel to add questions.";
     document.getElementById("options").innerHTML = "";
     document.getElementById("prevBtn").disabled = true;
     document.getElementById("nextBtn").disabled = true;
     return;
   }
-  const chosen = answers[questionKey(currentSessionIndex,currentQuestionIndex)];
-  document.getElementById("questionCounter").textContent = `Question ${currentQuestionIndex + 1} of ${s.questions.length}`;
-  document.getElementById("answeredCounter").textContent = `Answered ${s.questions.filter((_,i)=>answers[questionKey(currentSessionIndex,i)] !== undefined).length}/${s.questions.length}`;
+
+  const key = questionKey(currentSessionIndex, currentQuestionIndex);
+  const given = answers[key];
+  const done = isAnswered(given);
+  const grade = gradeQuestion(q, given);
+
+  document.getElementById("questionCounter").textContent =
+    `Question ${currentQuestionIndex + 1} of ${s.questions.length}` +
+    (q.points !== 1 ? ` \u00b7 ${q.points} pts` : "") +
+    (q.required ? " \u00b7 required" : "");
+  document.getElementById("answeredCounter").textContent =
+    `Answered ${s.questions.filter((_, i) => isAnswered(answers[questionKey(currentSessionIndex, i)])).length}/${s.questions.length}`;
   document.getElementById("questionText").textContent = q.q;
+
   const opts = document.getElementById("options");
   opts.innerHTML = "";
+
+  // optional picture above the choices
+  if(q.image){
+    const fig = document.createElement("img");
+    fig.className = "q-image";
+    fig.src = q.image;
+    fig.alt = "";
+    fig.onerror = () => { fig.style.display = "none"; };
+    opts.appendChild(fig);
+  }
+
+  if(q.type === "text"){
+    renderTextAnswer(opts, q, key, done, grade);
+  }else if(q.type === "multi"){
+    renderMultiAnswer(opts, q, key, done, grade);
+  }else{
+    renderSingleAnswer(opts, q, key, done);
+  }
+
+  // explanation, once they have committed to an answer
+  if(done && q.why){
+    const why = document.createElement("div");
+    why.className = "why-box " + (grade.state === "correct" ? "why-ok" : "why-bad");
+    why.textContent = q.why;
+    opts.appendChild(why);
+  }
+
+  const blocked = q.required && !done;
+  document.getElementById("prevBtn").disabled = currentQuestionIndex === 0;
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.disabled = blocked;
+  nextBtn.title = blocked ? "This question must be answered first." : "";
+  nextBtn.textContent = currentQuestionIndex === s.questions.length - 1 ? "Finish Session" : "Next \u2192";
+}
+
+function renderSingleAnswer(opts, q, key, done){
   q.options.forEach((opt, idx) => {
     const btn = document.createElement("button");
     btn.className = "option";
     btn.textContent = opt;
-    if(chosen !== undefined){
+    if(done){
       if(idx === q.answer) btn.classList.add("correct");
-      if(idx === chosen && chosen !== q.answer) btn.classList.add("wrong");
+      if(idx === answers[key] && answers[key] !== q.answer) btn.classList.add("wrong");
     }
-    btn.onclick = () => { answers[questionKey(currentSessionIndex,currentQuestionIndex)] = idx; render(); };
+    btn.onclick = () => { answers[key] = idx; render(); };
     opts.appendChild(btn);
   });
-  document.getElementById("prevBtn").disabled = currentQuestionIndex === 0;
-  document.getElementById("nextBtn").disabled = false;
-  document.getElementById("nextBtn").textContent = currentQuestionIndex === s.questions.length - 1 ? "Finish Session" : "Next →";
 }
+
+function renderMultiAnswer(opts, q, key, done, grade){
+  const picked = done ? (Array.isArray(answers[key]) ? answers[key] : [answers[key]])
+                      : (pendingPicks[key] || []);
+  const hint = document.createElement("div");
+  hint.className = "multi-hint";
+  hint.textContent = done
+    ? (grade.state === "correct" ? "All correct." : grade.state === "partial"
+        ? `Partly right \u2014 ${grade.earned} of ${grade.max} points.` : "Not right.")
+    : `Select all that apply (${q.answers.length} correct), then press Check.`;
+  opts.appendChild(hint);
+
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    const chosen = picked.includes(idx);
+    if(chosen && !done) btn.classList.add("selected");
+    if(done){
+      const isRight = q.answers.includes(idx);
+      if(isRight) btn.classList.add("correct");
+      if(chosen && !isRight) btn.classList.add("wrong");
+      if(chosen) btn.classList.add("picked");
+    }
+    btn.textContent = (chosen ? "\u2611 " : "\u2610 ") + opt;
+    btn.onclick = () => {
+      if(done) return;
+      const list = pendingPicks[key] ? pendingPicks[key].slice() : [];
+      const at = list.indexOf(idx);
+      if(at >= 0) list.splice(at, 1); else list.push(idx);
+      pendingPicks[key] = list.sort((a, b) => a - b);
+      render();
+    };
+    opts.appendChild(btn);
+  });
+
+  if(!done){
+    const check = document.createElement("button");
+    check.className = "primary check-btn";
+    check.textContent = "Check answer";
+    check.disabled = !(pendingPicks[key] && pendingPicks[key].length);
+    check.onclick = () => { answers[key] = (pendingPicks[key] || []).slice(); render(); };
+    opts.appendChild(check);
+  }
+}
+
+function renderTextAnswer(opts, q, key, done, grade){
+  const row = document.createElement("div");
+  row.className = "text-answer-row";
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Type your answer";
+  input.value = done ? String(answers[key]) : (pendingPicks[key] || "");
+  input.disabled = done;
+  input.oninput = () => { pendingPicks[key] = input.value; };
+  input.onkeydown = e => { if(e.key === "Enter" && !done && input.value.trim()){ answers[key] = input.value; render(); } };
+  row.appendChild(input);
+
+  if(!done){
+    const check = document.createElement("button");
+    check.className = "primary";
+    check.textContent = "Check";
+    check.onclick = () => { if(input.value.trim()){ answers[key] = input.value; render(); } };
+    row.appendChild(check);
+  }
+  opts.appendChild(row);
+
+  if(done){
+    const verdict = document.createElement("div");
+    verdict.className = "option " + (grade.state === "correct" ? "correct" : "wrong");
+    verdict.textContent = grade.state === "correct"
+      ? "Correct: " + answers[key]
+      : "You put \u201c" + answers[key] + "\u201d \u2014 accepted: " + (q.accept || []).join(", ");
+    opts.appendChild(verdict);
+  }
+}
+
 function renderScore(){
   document.getElementById("questionView").style.display = "none";
   document.getElementById("scoreView").style.display = "";
   const s = currentSession();
-  let correct=0, wrong=0, skipped=0;
+  let correct=0, wrong=0, skipped=0, partial=0, earned=0, possible=0;
   s.questions.forEach((q,i)=>{
-    const chosen = answers[questionKey(currentSessionIndex,i)];
-    if(chosen === undefined) skipped++;
-    else if(chosen === q.answer) correct++;
+    const g = gradeQuestion(q, answers[questionKey(currentSessionIndex,i)]);
+    earned += g.earned; possible += g.max;
+    if(g.state === "unanswered") skipped++;
+    else if(g.state === "correct") correct++;
+    else if(g.state === "partial"){ partial++; wrong++; }
     else wrong++;
   });
-  const pct = s.questions.length ? Math.round(correct / s.questions.length * 100) : 0;
+  const pct = possible ? Math.round(earned / possible * 100) : 0;
+  const pointsLine = document.getElementById("scorePoints");
+  if(pointsLine){
+    pointsLine.textContent = (Math.round(earned * 100) / 100) + " of " + possible + " points" +
+      (partial ? "  \u00b7  " + partial + " partly right" : "");
+  }
   document.getElementById("scoreTitle").textContent = `${s.name || "Session"} Complete`;
   const circle = document.getElementById("scoreCircle");
   circle.textContent = pct + "%";
@@ -4071,8 +4636,9 @@ function showAdminPanel(){
   document.getElementById("passwordGate").style.display = "none";
   document.getElementById("adminPanel").style.display = "block";
   if(!getAdminSession(selectedAdmin.session)) selectedAdmin = {session:MASTER_ADMIN_SESSION, question:0};
-  loadBackgroundInputs();
   loadHeaderInputs();
+  applyButtonLayout();
+  renderButtonManager();
   ["currentAdminPasswordInput","newAdminPasswordInput","confirmAdminPasswordInput"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; });
   const ps = document.getElementById("adminPasswordStatus"); if(ps) ps.textContent = "";
   renderAdminList();
@@ -4197,6 +4763,44 @@ function refreshAnswerSelect(selectId, count, selected){
   }
   sel.value = String(Math.min(Number(current || 0), Math.max(0,count-1)));
 }
+function setEditorFieldsForType(type){
+  const isText = type === "text";
+  const isMulti = type === "multi";
+  const isTF = type === "tf";
+  const show = (id, on) => { const el = document.getElementById(id); if(el) el.style.display = on ? "" : "none"; };
+  const showLabelled = (id, on) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.display = on ? "" : "none";
+    const lab = el.previousElementSibling;
+    if(lab && lab.tagName === "LABEL") lab.style.display = on ? "" : "none";
+  };
+  showLabelled("adminOptionRows", !isText);
+  show("adminAddOptionBtn", !isText && !isTF);
+  showLabelled("editAnswer", !isText && !isMulti);
+  show("editMultiWrap", isMulti);
+  show("editAcceptWrap", isText);
+}
+
+function renderMultiCorrectRows(q){
+  const box = document.getElementById("editMultiRows");
+  if(!box) return;
+  box.innerHTML = "";
+  q.options.forEach((opt, idx) => {
+    const row = document.createElement("label");
+    row.className = "check-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = (q.answers || []).includes(idx);
+    cb.onchange = saveAdminEditor;
+    cb.dataset.optIndex = String(idx);
+    const span = document.createElement("span");
+    span.textContent = opt || ("Option " + (idx + 1));
+    row.appendChild(cb); row.appendChild(span);
+    box.appendChild(row);
+  });
+}
+
 function loadAdminEditor(){
   const s = getAdminSession(selectedAdmin.session);
   const q = s && s.questions[selectedAdmin.question];
@@ -4209,11 +4813,24 @@ function loadAdminEditor(){
     refreshAnswerSelect("editAnswer",0,0);
     if(moveBtn) moveBtn.disabled = true;
     if(info) info.textContent = "No question selected.";
+    setEditorFieldsForType("single");
     refreshSmartMovePanel();
     return;
   }
+
+  const type = q.type || "single";
+  document.getElementById("editType").value = type;
+  document.getElementById("editPoints").value = q.points || 1;
+  document.getElementById("editImage").value = q.image || "";
+  document.getElementById("editWhy").value = q.why || "";
+  document.getElementById("editRequired").checked = !!q.required;
+  document.getElementById("editAccept").value = (q.accept || []).join("\n");
+
   q.options.forEach(opt => rows.appendChild(makeOptionRow("adminOptionRows", opt, saveAdminEditor)));
   refreshAnswerSelect("editAnswer", q.options.length, q.answer);
+  renderMultiCorrectRows(q);
+  setEditorFieldsForType(type);
+
   if(moveBtn) moveBtn.disabled = false;
   if(info) info.textContent = `Selected: ${s.name} question ${selectedAdmin.question + 1} of ${s.questions.length}.`;
   refreshSmartMovePanel();
@@ -4222,12 +4839,47 @@ function saveAdminEditor(){
   const s = getAdminSession(selectedAdmin.session);
   const q = s && s.questions[selectedAdmin.question];
   if(!q) return;
-  const opts = optionRowsToArray("adminOptionRows");
-  if(opts.length < 2) return;
-  q.q = document.getElementById("editQ").value.trim() || "Untitled question";
-  q.options = opts;
-  q.answer = Math.min(Number(document.getElementById("editAnswer").value || 0), opts.length - 1);
-  refreshAnswerSelect("editAnswer", opts.length, q.answer);
+
+  const type = document.getElementById("editType").value;
+  // Start from what the question already is, so fields this type does not edit
+  // (options while it is a typed question, accepted answers while it is
+  // multiple choice) survive instead of being wiped.
+  const draft = Object.assign(deepClone(q), {
+    q: document.getElementById("editQ").value.trim() || "Untitled question",
+    type: type,
+    points: Number(document.getElementById("editPoints").value) || 1,
+    image: document.getElementById("editImage").value.trim(),
+    why: document.getElementById("editWhy").value.trim(),
+    required: document.getElementById("editRequired").checked
+  });
+
+  if(type === "text"){
+    draft.accept = document.getElementById("editAccept").value.split("\n").map(x => x.trim()).filter(Boolean);
+    if(!draft.accept.length) return;         // refuse to save a typed question with nothing accepted
+  }else if(type === "tf"){
+    draft.options = ["True", "False"];
+    draft.answer = Number(document.getElementById("editAnswer").value || 0) === 1 ? 1 : 0;
+  }else{
+    const opts = optionRowsToArray("adminOptionRows");
+    if(opts.length < 2) return;              // as before: never save a question with fewer than two options
+    draft.options = opts;
+    if(type === "multi"){
+      draft.answers = Array.from(document.querySelectorAll("#editMultiRows input[type=checkbox]"))
+        .filter(cb => cb.checked)
+        .map(cb => Number(cb.dataset.optIndex))
+        .filter(i => i < opts.length);
+      if(!draft.answers.length) draft.answers = [0];
+    }else{
+      draft.answer = Math.min(Number(document.getElementById("editAnswer").value || 0), opts.length - 1);
+    }
+  }
+
+  const next = normalizeQuestion(draft);
+  Object.keys(q).forEach(k => delete q[k]);
+  Object.assign(q, next);
+
+  if(type !== "text" && type !== "multi") refreshAnswerSelect("editAnswer", q.options.length, q.answer);
+  if(type === "multi") renderMultiCorrectRows(q);   // keep the tick list in step with edited option text
   saveState();
   renderAdminList();
   render();
@@ -4235,6 +4887,28 @@ function saveAdminEditor(){
 document.getElementById("questionSearchInput").addEventListener("input", runQuestionSearch);
 document.getElementById("editQ").addEventListener("input", saveAdminEditor);
 document.getElementById("editAnswer").addEventListener("change", saveAdminEditor);
+document.getElementById("editPoints").addEventListener("input", saveAdminEditor);
+document.getElementById("editImage").addEventListener("input", saveAdminEditor);
+document.getElementById("editWhy").addEventListener("input", saveAdminEditor);
+document.getElementById("editAccept").addEventListener("input", saveAdminEditor);
+document.getElementById("editRequired").addEventListener("change", saveAdminEditor);
+document.getElementById("editType").addEventListener("change", () => {
+  const s = getAdminSession(selectedAdmin.session);
+  const q = s && s.questions[selectedAdmin.question];
+  if(!q) return;
+  const type = document.getElementById("editType").value;
+  // Switching to True/False replaces the options, so seed them before saving.
+  if(type === "tf"){
+    q.type = "tf"; q.options = ["True", "False"]; q.answer = q.answer === 1 ? 1 : 0;
+  }else if(type === "text" && !(q.accept || []).length){
+    q.type = "text"; q.accept = [];
+  }else{
+    q.type = type;
+  }
+  setEditorFieldsForType(type);
+  loadAdminEditor();
+  saveAdminEditor();
+});
 document.getElementById("adminAddOptionBtn").onclick = () => {
   const rows = document.getElementById("adminOptionRows");
   rows.appendChild(makeOptionRow("adminOptionRows", `${optionLabel(rows.querySelectorAll("input").length)}. New option`, saveAdminEditor));
@@ -4891,7 +5565,6 @@ function applySmartMoveQuestion(){
   if(movedCount) parts.push(`moved ${movedCount} from quiz session${movedCount === 1 ? "" : "s"}`);
   if(status) status.textContent = `${parts.join(" and ")} to ${targetSession.name}, starting at question ${insertIndex + 1}. Session 0 remains unchanged.`;
 }
-document.getElementById("smartMoveQuestionBtn").onclick = () => { showToolBox("moveQuestionBox"); refreshSmartMovePanel(); };
 document.getElementById("moveTargetSession").addEventListener("change", refreshSmartMovePanel);
 const moveSourceSession = document.getElementById("moveSourceSession");
 if(moveSourceSession){
@@ -4926,100 +5599,25 @@ if(moveNumberInput){
 }
 
 function showToolBox(id){
-  ["securityBox","moveQuestionBox","headerBox","bgBox"].forEach(boxId => {
+  ["securityBox","moveQuestionBox","headerBox","buttonBox"].forEach(boxId => {
     const box = document.getElementById(boxId);
     if(box) box.classList.toggle("active", boxId === id);
   });
   const activeBox = document.getElementById(id);
   if(activeBox) activeBox.scrollIntoView({behavior:"smooth", block:"nearest"});
 }
-document.getElementById("securityBtn").onclick = () => {
-  showToolBox("securityBox");
-};
 function loadHeaderInputs(){
   const t = document.getElementById("headerTitleInput");
   const s = document.getElementById("headerSubtitleInput");
   if(t) t.value = (state.header && state.header.title) || "";
   if(s) s.value = (state.header && state.header.subtitle) || "";
 }
-document.getElementById("headerBtn").onclick = () => {
-  loadHeaderInputs();
-  showToolBox("headerBox");
-};
 function saveHeader(){
   state.header.title = document.getElementById("headerTitleInput").value.trim() || ORIGINAL_HEADER.title;
   state.header.subtitle = document.getElementById("headerSubtitleInput").value.trim() || ORIGINAL_HEADER.subtitle;
   saveState(); applyHeader();
 }
 document.getElementById("saveHeaderBtn").onclick = saveHeader;
-document.getElementById("bgBtn").onclick = () => { loadBackgroundInputs(); showToolBox("bgBox"); };
-function loadBackgroundInputs(){
-  const bg = state.background || ORIGINAL_BACKGROUND;
-  document.getElementById("bgImageInput").value = bg.imageUrl || "";
-  document.getElementById("bgVideoInput").value = bg.videoUrl || "";
-  document.getElementById("bgOpacityInput").value = bg.overlayOpacity || 0;
-  document.getElementById("bgOpacityLabel").textContent = bg.overlayOpacity || 0;
-  const upload = document.getElementById("bgVideoUpload");
-  if(upload) upload.value = "";
-  updateVideoButtons();
-}
-function saveBackgroundInputs(){
-  const newVideoUrl = document.getElementById("bgVideoInput").value.trim();
-  state.background = {
-    imageUrl: document.getElementById("bgImageInput").value.trim(),
-    videoUrl: newVideoUrl,
-    uploadedVideoData: newVideoUrl ? "" : (state.background?.uploadedVideoData || ""),
-    overlayOpacity: Number(document.getElementById("bgOpacityInput").value || 0),
-    muted: state.background?.muted !== false,
-    playing: state.background?.playing !== false
-  };
-  document.getElementById("bgOpacityLabel").textContent = state.background.overlayOpacity;
-  saveState(); applyBackground();
-}
-document.getElementById("bgImageInput").addEventListener("input", saveBackgroundInputs);
-document.getElementById("bgVideoInput").addEventListener("input", saveBackgroundInputs);
-document.getElementById("bgOpacityInput").addEventListener("input", saveBackgroundInputs);
-
-document.getElementById("bgVideoUpload").addEventListener("change", event => {
-  const file = event.target.files && event.target.files[0];
-  if(!file) return;
-  if(!file.type.startsWith("video/")){
-    alert("Please choose a video file.");
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = () => {
-    try{
-      state.background = state.background || deepClone(ORIGINAL_BACKGROUND);
-      state.background.uploadedVideoData = reader.result;
-      state.background.videoUrl = "";
-      state.background.playing = true;
-      state.background.muted = true;
-      document.getElementById("bgVideoInput").value = "";
-      saveState();
-      applyBackground();
-      alert("Video uploaded. It is saved in this browser.");
-    }catch(e){
-      alert("This video is too large to save in localStorage. Try a smaller video or use a direct .mp4 link.");
-      state.background.uploadedVideoData = "";
-      applyBackground();
-    }
-  };
-  reader.readAsDataURL(file);
-});
-document.getElementById("removeBackgroundBtn").onclick = () => {
-  state.background = deepClone(ORIGINAL_BACKGROUND);
-  saveState(); loadBackgroundInputs(); applyBackground();
-};
-document.getElementById("videoMuteBtn").onclick = () => {
-  state.background.muted = !(state.background?.muted !== false);
-  saveState(); applyBackground();
-};
-document.getElementById("videoPlayBtn").onclick = () => {
-  state.background.playing = !(state.background?.playing !== false);
-  saveState(); applyBackground();
-};
-
 function openOptions(){ document.getElementById("optionsOverlay").style.display = "block"; refreshOptionsPanel(); }
 function closeOptions(){ document.getElementById("optionsOverlay").style.display = "none"; }
 function setActiveTab(tabId){
@@ -5110,6 +5708,48 @@ document.getElementById("bulkQuestionSession").onchange = updateBulkAfterSelect;
 document.getElementById("bulkQuestionPosition").onchange = updateBulkAfterSelect;
 function refreshNewCorrectAnswer(){
   refreshAnswerSelect("newCorrectAnswer", document.querySelectorAll("#newOptionRows input").length, document.getElementById("newCorrectAnswer").value || 0);
+  renderNewMultiRows();
+}
+
+// Tick list for "more than one correct answer" — rebuilt whenever the options
+// change, keeping whatever was already ticked.
+function renderNewMultiRows(){
+  const box = document.getElementById("newMultiRows");
+  if(!box) return;
+  const wasTicked = new Set(
+    Array.from(box.querySelectorAll("input[type=checkbox]"))
+      .filter(cb => cb.checked)
+      .map(cb => Number(cb.dataset.optIndex))
+  );
+  const values = Array.from(document.querySelectorAll("#newOptionRows input")).map(i => i.value.trim());
+  box.innerHTML = "";
+  values.forEach((val, idx) => {
+    const row = document.createElement("label");
+    row.className = "check-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.dataset.optIndex = String(idx);
+    cb.checked = wasTicked.has(idx);
+    const span = document.createElement("span");
+    span.textContent = val || ("Option " + optionLabel(idx));
+    if(!val) span.style.opacity = ".55";
+    row.appendChild(cb); row.appendChild(span);
+    box.appendChild(row);
+  });
+}
+
+function newQuestionIsMulti(){
+  const t = document.getElementById("newMultiToggle");
+  return !!(t && t.checked);
+}
+
+function setNewAnswerMode(){
+  const multi = newQuestionIsMulti();
+  const single = document.getElementById("newSingleAnswerWrap");
+  const many = document.getElementById("newMultiAnswerWrap");
+  if(single) single.style.display = multi ? "none" : "";
+  if(many) many.style.display = multi ? "" : "none";
+  if(multi) renderNewMultiRows();
 }
 function clearNewQuestionForm(){
   document.getElementById("newQuestionText").value = "";
@@ -5117,7 +5757,10 @@ function clearNewQuestionForm(){
   const rows = document.getElementById("newOptionRows");
   rows.innerHTML = "";
   ["A. Option A","B. Option B","C. Option C","D. Option D"].forEach(v=>rows.appendChild(makeOptionRow("newOptionRows", v, refreshNewCorrectAnswer)));
+  const toggle = document.getElementById("newMultiToggle");
+  if(toggle) toggle.checked = false;
   refreshNewCorrectAnswer();
+  setNewAnswerMode();
 }
 document.getElementById("newAddOptionBtn").onclick = () => {
   const rows = document.getElementById("newOptionRows");
@@ -5190,12 +5833,38 @@ function isLetterOptionLine(line){
 function isNumberOptionLine(line){
   return /^\s*\d+\s*[\.\)\-:]\s+\S+/.test(line);
 }
+// "A", "A, C", "A and C", "AC", "1,3" -> [0], [0,2], [0,2], [0,2], [0,2]
+function parseAnswerLetters(text){
+  const out = [];
+  String(text || "")
+    .replace(/\band\b/gi, " ")
+    .split(/[\s,;&+/|]+/)
+    .filter(Boolean)
+    .forEach(token => {
+      if(/^\d+$/.test(token)){
+        const n = Number(token) - 1;
+        if(n >= 0) out.push(n);
+      }else if(/^[A-Za-z]+$/.test(token)){
+        token.split("").forEach(ch => {
+          const i = optionLetterToIndex(ch);
+          if(i >= 0) out.push(i);
+        });
+      }
+    });
+  return [...new Set(out)].sort((a, b) => a - b);
+}
+const ANSWER_LINE_RE = /^\s*(?:Answer|Ans|Correct(?:\s*Answer)?)\s*[:\-=]?\s*([A-Za-z0-9][A-Za-z0-9\s,;&+/|]*)$/i;
 function isAnswerLine(line){
-  return /^\s*(?:Answer|Ans|Correct(?:\s*Answer)?)\s*[:\-]?\s*([A-Za-z]|\d+)\s*$/i.test(line);
+  if(!ANSWER_LINE_RE.test(line)) return false;
+  return parseAnswerLetters(line.match(ANSWER_LINE_RE)[1]).length > 0;
 }
 function parseAnswerValue(line){
-  const match = line.match(/^\s*(?:Answer|Ans|Correct(?:\s*Answer)?)\s*[:\-]?\s*([A-Za-z]|\d+)\s*$/i);
-  return match ? optionLetterToIndex(match[1]) : -1;
+  const list = parseAnswerLetterList(line);
+  return list.length ? list[0] : -1;
+}
+function parseAnswerLetterList(line){
+  const m = line.match(ANSWER_LINE_RE);
+  return m ? parseAnswerLetters(m[1]) : [];
 }
 function parseBulkAnswerKeyText(text){
   const answerMap = {};
@@ -5209,13 +5878,25 @@ function parseBulkAnswerKeyText(text){
     /(?:^|[\s,])(\d+)([A-Za-z])(?=$|[\s,;])/gi
   ];
 
+  // First pass, line by line, so "12. A, C" and "3 - B and D" work.
+  source.split("\n").forEach(rawLine => {
+    const line = rawLine.trim();
+    if(!line) return;
+    const m = line.match(/^(?:Q(?:uestion)?\s*)?(\d+)\s*[\.\)\-:=]?\s*(?:Answer|Ans|Correct(?:\s*Answer)?)?\s*[:=\-]?\s*(.+)$/i);
+    if(!m) return;
+    const num = Number(m[1]);
+    const letters = parseAnswerLetters(m[2]);
+    if(num > 0 && letters.length) answerMap[num - 1] = letters;
+  });
+
+  // Then the original compact patterns, only where nothing was found yet.
   patterns.forEach(regex => {
     let match;
     while((match = regex.exec(source)) !== null){
       const questionNumber = Number(match[1]);
       const answerIndex = optionLetterToIndex(match[2]);
-      if(questionNumber > 0 && answerIndex >= 0){
-        answerMap[questionNumber - 1] = answerIndex;
+      if(questionNumber > 0 && answerIndex >= 0 && answerMap[questionNumber - 1] === undefined){
+        answerMap[questionNumber - 1] = [answerIndex];
       }
     }
   });
@@ -5233,11 +5914,13 @@ function applyBulkAnswerKey(showAlert = true){
 
   Object.keys(answerMap).forEach(key => {
     const questionIndex = Number(key);
-    const answerIndex = answerMap[key];
+    const list = (answerMap[key] || []).filter(i => i >= 0);
     const item = parsedBulkQuestions[questionIndex];
-    if(item && answerIndex >= 0 && answerIndex < item.options.length){
-      item.answer = answerIndex;
-      item.ok = Boolean(item.q) && item.options.length >= 2;
+    if(item && list.length && list.every(i => i < item.options.length)){
+      item.answers = list;
+      item.answer = list[0];
+      item.type = list.length > 1 ? "multi" : "single";
+      item.ok = bulkItemOk(item);
       applied++;
     } else {
       ignored++;
@@ -5298,17 +5981,27 @@ function splitIntoQuestionBlocks(text){
   return blocks;
 }
 
+function bulkItemOk(item){
+  if(!item || !item.q || !Array.isArray(item.options) || item.options.length < 2) return false;
+  if(item.type === "multi"){
+    const list = item.answers || [];
+    return list.length >= 1 && list.every(i => i >= 0 && i < item.options.length);
+  }
+  return item.answer >= 0 && item.answer < item.options.length;
+}
 function parseBulkQuestionsText(text){
   const blocks = splitIntoQuestionBlocks(text);
   const parsed = [];
 
   for(const block of blocks){
     let answer = -1;
+    let answerList = [];
     const body = [];
 
     for(const line of block){
       if(isAnswerLine(line)){
-        answer = parseAnswerValue(line);
+        answerList = parseAnswerLetterList(line);
+        answer = answerList.length ? answerList[0] : -1;
       } else {
         body.push(line);
       }
@@ -5338,10 +6031,19 @@ function parseBulkQuestionsText(text){
       options = candidateLines.map((line, idx) => `${indexToLetter(idx)}. ${cleanOptionLine(line)}`);
     }
 
-    if(answer < 0 && options.length) answer = 0;
+    if(answer < 0 && options.length){ answer = 0; answerList = [0]; }
+    if(!answerList.length && answer >= 0) answerList = [answer];
+    answerList = answerList.filter(i => i >= 0 && i < options.length);
 
-    const ok = Boolean(questionText) && options.length >= 2 && answer >= 0 && answer < options.length;
-    parsed.push({ q: questionText, options, answer, ok });
+    const item = {
+      q: questionText,
+      options: options,
+      answer: answer,
+      answers: answerList,
+      type: answerList.length > 1 ? "multi" : "single"
+    };
+    item.ok = bulkItemOk(item);
+    parsed.push(item);
   }
 
   return parsed;
@@ -5365,9 +6067,16 @@ function renderBulkQuestionsPreview(){
     const div = document.createElement("div");
     div.className = "bulk-preview-item";
 
+    const isMulti = item.type === "multi";
     const optionsHtml = item.options.map((option, optionIndex) => {
       const cleanText = option.replace(/^[A-Za-z]\.\s*/i, "");
       return `<option value="${optionIndex}" ${item.answer === optionIndex ? "selected" : ""}>${indexToLetter(optionIndex)} — ${escapeHtml(cleanText)}</option>`;
+    }).join("");
+
+    const ticksHtml = item.options.map((option, optionIndex) => {
+      const cleanText = option.replace(/^[A-Za-z]\.\s*/i, "");
+      const on = (item.answers || []).includes(optionIndex) ? "checked" : "";
+      return `<label class="check-row"><input type="checkbox" class="bulk-answer-tick" data-bulk-index="${index}" data-opt-index="${optionIndex}" ${on}><span>${indexToLetter(optionIndex)} — ${escapeHtml(cleanText)}</span></label>`;
     }).join("");
 
     div.innerHTML = `
@@ -5376,12 +6085,13 @@ function renderBulkQuestionsPreview(){
 
       <div class="small-muted">${item.options.map(option => escapeHtml(option)).join("<br>")}</div>
 
-      <label>Choose correct answer</label>
-      <select class="bulk-answer-select" data-bulk-index="${index}">
-        ${optionsHtml}
-      </select>
+      <label class="inline-check"><input type="checkbox" class="bulk-multi-toggle" data-bulk-index="${index}" ${isMulti ? "checked" : ""}> More than one correct answer</label>
 
-      <div class="${item.ok ? "bulk-ok" : "bulk-bad"}">${item.ok ? "Ready" : "Check question/options format"}</div>
+      ${isMulti
+        ? `<label>Tick every correct answer</label><div class="checkbox-list">${ticksHtml}</div>`
+        : `<label>Choose correct answer</label><select class="bulk-answer-select" data-bulk-index="${index}">${optionsHtml}</select>`}
+
+      <div class="${item.ok ? "bulk-ok" : "bulk-bad"}">${item.ok ? (isMulti ? `Ready \u00b7 ${(item.answers || []).length} correct` : "Ready") : "Check question/options format"}</div>
     `;
     box.appendChild(div);
   });
@@ -5389,12 +6099,40 @@ function renderBulkQuestionsPreview(){
   box.querySelectorAll(".bulk-answer-select").forEach(select => {
     select.onchange = () => {
       const index = Number(select.dataset.bulkIndex);
-      parsedBulkQuestions[index].answer = Number(select.value);
-      parsedBulkQuestions[index].ok =
-        Boolean(parsedBulkQuestions[index].q) &&
-        parsedBulkQuestions[index].options.length >= 2 &&
-        parsedBulkQuestions[index].answer >= 0 &&
-        parsedBulkQuestions[index].answer < parsedBulkQuestions[index].options.length;
+      const item = parsedBulkQuestions[index];
+      item.answer = Number(select.value);
+      item.answers = [item.answer];
+      item.ok = bulkItemOk(item);
+      renderBulkQuestionsPreview();
+    };
+  });
+
+  box.querySelectorAll(".bulk-answer-tick").forEach(cb => {
+    cb.onchange = () => {
+      const index = Number(cb.dataset.bulkIndex);
+      const item = parsedBulkQuestions[index];
+      const optIndex = Number(cb.dataset.optIndex);
+      const list = new Set(item.answers || []);
+      if(cb.checked) list.add(optIndex); else list.delete(optIndex);
+      item.answers = [...list].sort((a, b) => a - b);
+      item.answer = item.answers.length ? item.answers[0] : -1;
+      item.ok = bulkItemOk(item);
+      renderBulkQuestionsPreview();
+    };
+  });
+
+  box.querySelectorAll(".bulk-multi-toggle").forEach(cb => {
+    cb.onchange = () => {
+      const index = Number(cb.dataset.bulkIndex);
+      const item = parsedBulkQuestions[index];
+      item.type = cb.checked ? "multi" : "single";
+      if(item.type === "single"){
+        item.answer = (item.answers && item.answers.length) ? item.answers[0] : 0;
+        item.answers = [item.answer];
+      }else if(!item.answers || !item.answers.length){
+        item.answers = item.answer >= 0 ? [item.answer] : [];
+      }
+      item.ok = bulkItemOk(item);
       renderBulkQuestionsPreview();
     };
   });
@@ -5403,11 +6141,7 @@ function renderBulkQuestionsPreview(){
     textarea.oninput = () => {
       const index = Number(textarea.dataset.bulkQuestion);
       parsedBulkQuestions[index].q = textarea.value.trim();
-      parsedBulkQuestions[index].ok =
-        Boolean(parsedBulkQuestions[index].q) &&
-        parsedBulkQuestions[index].options.length >= 2 &&
-        parsedBulkQuestions[index].answer >= 0 &&
-        parsedBulkQuestions[index].answer < parsedBulkQuestions[index].options.length;
+      parsedBulkQuestions[index].ok = bulkItemOk(parsedBulkQuestions[index]);
     };
   });
 
@@ -5428,7 +6162,9 @@ function importBulkQuestions(){
   const valid = parsedBulkQuestions.filter(item => item.ok).map(item => normalizeQuestion({
     q: item.q,
     options: item.options,
-    answer: item.answer
+    answer: item.answer,
+    answers: item.answers,
+    type: item.type === "multi" ? "multi" : "single"
   }));
 
   if(!valid.length){
@@ -5474,11 +6210,26 @@ function saveNewQuestion(){
   if(!dest) return;
   const opts = optionRowsToArray("newOptionRows");
   if(opts.length < 2){ alert("Please add at least 2 options."); return; }
-  const q = normalizeQuestion({
+
+  const draft = {
     q: document.getElementById("newQuestionText").value.trim() || "New question",
-    options: opts,
-    answer: Number(document.getElementById("newCorrectAnswer").value || 0)
-  });
+    options: opts
+  };
+
+  if(newQuestionIsMulti()){
+    const ticked = Array.from(document.querySelectorAll("#newMultiRows input[type=checkbox]"))
+      .filter(cb => cb.checked)
+      .map(cb => Number(cb.dataset.optIndex))
+      .filter(i => i < opts.length);
+    if(!ticked.length){ alert("Tick at least one correct answer."); return; }
+    draft.type = "multi";
+    draft.answers = ticked;
+  }else{
+    draft.type = "single";
+    draft.answer = Number(document.getElementById("newCorrectAnswer").value || 0);
+  }
+
+  const q = normalizeQuestion(draft);
   const pos = document.getElementById("newQuestionPosition").value;
   let insertAt = dest.questions.length;
   if(pos === "beginning") insertAt = 0;
@@ -5497,6 +6248,7 @@ function saveNewQuestion(){
   saveState(); refreshOptionsPanel(); renderAdminList(); loadAdminEditor(); render();
   alert(`Question added to ${dest.name}.`);
 }
+document.getElementById("newMultiToggle").addEventListener("change", setNewAnswerMode);
 document.getElementById("saveNewQuestionBtn").onclick = saveNewQuestion;
 document.getElementById("singleAddTabBtn").onclick = () => setAddTab("single");
 document.getElementById("bulkQuestionTabBtn").onclick = () => setAddTab("bulk");
@@ -5655,9 +6407,8 @@ function resetOriginal(){
   state = buildOriginalState();
   answers = {};
   currentSessionIndex = 0; currentQuestionIndex = 0; selectedAdmin = {session:MASTER_ADMIN_SESSION, question:0}; showScore = false;
-  saveState(); loadBackgroundInputs(); applyButtonLayout(); renderAdminList(); loadAdminEditor(); refreshOptionsPanel(); render();
+  saveState(); applyButtonLayout(); renderAdminList(); loadAdminEditor(); refreshOptionsPanel(); render();
 }
-document.getElementById("resetOriginalBtn").onclick = resetOriginal;
 
 function escapeHtml(value){
   return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
@@ -5690,7 +6441,7 @@ function makeFreshExportStorageKey(){
 }
 
 function exportAsHtml(){
-  saveAdminEditor(); saveHeader(); saveBackgroundInputs(); saveAdminButtonOrder(); applyButtonLayout();
+  saveAdminEditor(); saveHeader(); saveAdminButtonOrder(); applyButtonLayout();
   const flat = [];
   const sizes = [];
   state.sessions.forEach(s=>{ sizes.push(s.questions.length); s.questions.forEach(q=>flat.push(normalizeQuestion(q))); });
@@ -5709,10 +6460,7 @@ function exportAsHtml(){
   const freshStorageKey = makeFreshExportStorageKey();
   html = html.replace(/const STORAGE_KEY = "[^"]*";/, "const STORAGE_KEY = " + JSON.stringify(freshStorageKey) + ";");
   html = html.replace(/const ORIGINAL_HEADER = \{[\s\S]*?\};/, "const ORIGINAL_HEADER = " + JSON.stringify(state.header, null, 2) + ";");
-  html = html.replace(/const ORIGINAL_BACKGROUND = \{[\s\S]*?\};/, "const ORIGINAL_BACKGROUND = " + JSON.stringify(state.background, null, 2) + ";");
-  state.buttonLayout = state.buttonLayout || deepClone(ORIGINAL_BUTTON_LAYOUT);
-  state.buttonLayout.adminActionOrder = normalizeAdminActionOrder(state.buttonLayout.adminActionOrder);
-  state.buttonLayout.adminButtonPositions = {};
+  state.buttonLayout = { buttons: ensureButtonModel() };
   html = html.replace(/const ORIGINAL_BUTTON_LAYOUT = \{[\s\S]*?\};/, "const ORIGINAL_BUTTON_LAYOUT = " + JSON.stringify(state.buttonLayout, null, 2) + ";");
   html = html.replace(/const ADMIN_PASSWORD = [\s\S]*?;/, "const ADMIN_PASSWORD = " + JSON.stringify(getAdminPassword()) + ";");
   html = html.replace(/const ORIGINAL_SESSION_SIZES = \[[\s\S]*?\];/, "const ORIGINAL_SESSION_SIZES = " + JSON.stringify(sizes) + ";");
@@ -5729,7 +6477,6 @@ function exportAsHtml(){
   a.href = url; a.download = "norton_surgical_pathology_1_edited_quiz.html";
   document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
-document.getElementById("exportHtmlBtn").onclick = exportAsHtml;
 document.getElementById("saveAdminPasswordBtn").onclick = changeAdminPassword;
 
 document.getElementById("adminFab").onclick = openAdmin;
@@ -5743,7 +6490,6 @@ document.getElementById("togglePasswordBtn").onchange = () => {
 };
 document.getElementById("adminPassword").addEventListener("keydown", e=>{ if(e.key === "Enter") checkPassword(); });
 document.getElementById("closeAdmin").onclick = closeAdmin;
-document.getElementById("adminGearBtn").onclick = openOptions;
 document.getElementById("closeOptions").onclick = closeOptions;
 document.getElementById("adminOverlay").addEventListener("click", e=>{ if(e.target.id === "adminOverlay") closeAdmin(); });
 document.getElementById("optionsOverlay").addEventListener("click", e=>{ if(e.target.id === "optionsOverlay") closeOptions(); });
@@ -5751,7 +6497,7 @@ document.getElementById("optionsOverlay").addEventListener("click", e=>{ if(e.ta
 /* ---------- live sync controls ---------- */
 document.getElementById("syncPullBtn").onclick = () => LiveSync.pull();
 document.getElementById("syncPushBtn").onclick = () => {
-  saveAdminEditor(); saveHeader(); saveBackgroundInputs();
+  saveAdminEditor(); saveHeader();
   LiveSync.push();
 };
 document.getElementById("syncSaveKeyBtn").onclick = () => {
@@ -5792,26 +6538,52 @@ document.getElementById("syncNewSubjectBtn").onclick = () => {
 
 document.getElementById("syncBackBtn").onclick = () => LiveSync.backToOriginal();
 
-document.getElementById("syncDiagBtn").onclick = async () => {
-  const btn = document.getElementById("syncDiagBtn");
+async function copyDiagnostics(btn){
   const text = LiveSync.diagnostics();
   let copied = false;
   try{
     await navigator.clipboard.writeText(text);
     copied = true;
   }catch(e){
-    // clipboard blocked (common on file:// and http) — fall back to a textarea
     const ta = document.createElement("textarea");
     ta.value = text;
     ta.style.cssText = "position:fixed;left:0;top:0;width:96vw;height:40vh;z-index:9999;font:12px monospace";
     document.body.appendChild(ta);
     ta.select();
     try{ copied = document.execCommand("copy"); }catch(e2){}
-    if(copied) ta.remove();
-    else setTimeout(() => { ta.remove(); }, 30000);
+    if(copied) ta.remove(); else setTimeout(() => ta.remove(), 30000);
   }
-  btn.textContent = copied ? "✓ Copied — paste it in chat" : "⚠ Select the text above and copy";
-  setTimeout(() => { btn.textContent = "🩺 Copy diagnostics"; }, 6000);
+  if(btn){
+    const original = btn.textContent;
+    btn.textContent = copied ? "\u2713 Copied" : "\u26a0 Copy it above";
+    setTimeout(() => { btn.textContent = original; }, 5000);
+  }
+  return copied;
+}
+document.getElementById("syncDiagBtn").onclick = (e) => copyDiagnostics(e.currentTarget);
+
+document.getElementById("addButtonBtn").onclick = () => {
+  const sel = document.getElementById("newButtonAction");
+  const action = sel.value;
+  if(!ADMIN_ACTIONS[action]) return;
+  const iconEl = document.getElementById("newButtonIcon");
+  const labelEl = document.getElementById("newButtonLabel");
+  const list = ensureButtonModel();
+  list.push(normalizeButtonDef({
+    id: "b_custom_" + list.length + "_" + action,
+    action: action,
+    icon: iconEl.value.trim() || ADMIN_ACTIONS[action].icon,
+    label: labelEl.value.trim() || ADMIN_ACTIONS[action].name,
+    showLabel: !!labelEl.value.trim(),
+    variant: "primary"
+  }, list.length));
+  iconEl.value = ""; labelEl.value = "";
+  commitButtons();
+};
+document.getElementById("restoreButtonsBtn").onclick = () => {
+  state.buttonLayout = state.buttonLayout || {};
+  state.buttonLayout.buttons = defaultAdminButtons();
+  commitButtons();
 };
 
 applyButtonLayout();
