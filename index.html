@@ -422,7 +422,10 @@ textarea{min-height:90px;resize:vertical}
         </div>
       </div>
       <div class="sync-key-row">
-        <input type="password" id="syncWriteKeyInput" placeholder="Admin write key (kept on this device only)" autocomplete="off">
+        <input type="password" id="syncWriteKeyInput" placeholder="Admin write key (kept on this device only)"
+               autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+               name="quiz-write-key-not-a-password" data-1p-ignore data-lpignore="true" data-form-type="other">
+        <button id="syncShowKeyBtn" type="button" title="Show or hide the key">👁</button>
         <button id="syncSaveKeyBtn" type="button">Save key</button>
         <button id="syncForgetKeyBtn" type="button">Forget</button>
       </div>
@@ -6502,11 +6505,26 @@ document.getElementById("syncPushBtn").onclick = () => {
 };
 document.getElementById("syncSaveKeyBtn").onclick = () => {
   const input = document.getElementById("syncWriteKeyInput");
-  LiveSync.setWriteKey((input.value || "").trim());
+  // Strip the invisible characters phone and Mac keyboards like to add:
+  // non-breaking spaces, zero-width joiners, and smart quotes/dashes.
+  const cleaned = (input.value || "")
+    .replace(/[ ​-‍﻿]/g, "")
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[‐-―]/g, "-")
+    .trim();
+  input.value = cleaned;
+  LiveSync.setWriteKey(cleaned);
 };
 document.getElementById("syncForgetKeyBtn").onclick = () => {
   document.getElementById("syncWriteKeyInput").value = "";
   LiveSync.setWriteKey("");
+};
+document.getElementById("syncShowKeyBtn").onclick = () => {
+  const input = document.getElementById("syncWriteKeyInput");
+  const showing = input.type === "text";
+  input.type = showing ? "password" : "text";
+  document.getElementById("syncShowKeyBtn").textContent = showing ? "👁" : "🙈";
 };
 document.getElementById("syncWriteKeyInput").addEventListener("keydown", e => {
   if(e.key === "Enter") document.getElementById("syncSaveKeyBtn").click();
